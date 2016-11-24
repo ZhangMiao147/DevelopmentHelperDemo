@@ -18,12 +18,12 @@
         android:layout_centerHorizontal="true">
 
         <Button
-            android:id="@+id/existing_tasks_button"
+            android:id="@+id/task_list_button"
             style="?android:attr/buttonBarStyle"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/existing_tasks"/>
+            android:text="@string/task_list"/>
 
         <Button
             android:id="@+id/create_tasks_button"

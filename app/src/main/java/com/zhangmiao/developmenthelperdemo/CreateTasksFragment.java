@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class CreateTasksFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG="DevelopmentHelperDemo";
+    private static final String TAG = "DevelopmentHelperDemo";
 
     private View view;
 
@@ -48,23 +48,23 @@ public class CreateTasksFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_create_tasks,container,false);
+        view = inflater.inflate(R.layout.activity_create_tasks, container, false);
 
-        projectName = (EditText)view.findViewById(R.id.et_project_name);
-        projectDescribe = (EditText)view.findViewById(R.id.et_project_describe);
+        projectName = (EditText) view.findViewById(R.id.et_project_name);
+        projectDescribe = (EditText) view.findViewById(R.id.et_project_describe);
 
-        taskName = (EditText)view.findViewById(R.id.et_task_name);
-        taskDescribe = (EditText)view.findViewById(R.id.et_task_describe);
-        taskProjectList = (Spinner)view.findViewById(R.id.project_list);
+        taskName = (EditText) view.findViewById(R.id.et_task_name);
+        taskDescribe = (EditText) view.findViewById(R.id.et_task_describe);
+        taskProjectList = (Spinner) view.findViewById(R.id.project_list);
 
-        createProject = (Button)view.findViewById(R.id.bt_create_project);
-        createTask = (Button)view.findViewById(R.id.bt_create_task);
+        createProject = (Button) view.findViewById(R.id.bt_create_project);
+        createTask = (Button) view.findViewById(R.id.bt_create_task);
         createTask.setOnClickListener(this);
-       createProject.setOnClickListener(this);
+        createProject.setOnClickListener(this);
         projectList = new ArrayList<>();
 
         projectListAdapter = new ArrayAdapter<String>(view.getContext(),
-                android.R.layout.simple_spinner_item,projectList);
+                android.R.layout.simple_spinner_item, projectList);
         projectListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         taskProjectList.setAdapter(projectListAdapter);
         taskProjectList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -79,8 +79,6 @@ public class CreateTasksFragment extends Fragment implements View.OnClickListene
             }
         });
 
-
-
         return view;
     }
 
@@ -90,10 +88,8 @@ public class CreateTasksFragment extends Fragment implements View.OnClickListene
         ProjectDataStoreHelper.addSpinnerList();
     }
 
-    public static void addProjectList(String projectName)
-    {
-        for (int i = 0; i < projectListAdapter.getCount(); i++)
-        {
+    public static void addProjectList(String projectName) {
+        for (int i = 0; i < projectListAdapter.getCount(); i++) {
             if (projectName.equals(projectListAdapter.getItem(i)))
                 return;
         }
@@ -104,14 +100,14 @@ public class CreateTasksFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.bt_create_project:
                 String projectNameText = projectName.getText().toString();
                 String projectDescribeText = projectDescribe.getText().toString();
                 AVUser currentUser = AVUser.getCurrentUser();
-                if(!projectNameText.isEmpty()){
-                    ProjectDataStoreHelper.createProjectData(projectNameText,projectDescribeText,currentUser);
-                }else {
+                if (!projectNameText.isEmpty()) {
+                    ProjectDataStoreHelper.createProjectData(projectNameText, projectDescribeText, currentUser);
+                } else {
                     Log.v(TAG, "please input project name");
                 }
                 break;
@@ -121,13 +117,13 @@ public class CreateTasksFragment extends Fragment implements View.OnClickListene
                 String taskDescribeText = taskDescribe.getText().toString();
 
                 AVUser avUser = AVUser.getCurrentUser();
-                if(!taskNameText.isEmpty()) {
+                if (!taskNameText.isEmpty()) {
                     TaskDataStoreHelper.createTaskData(taskNameText, taskDescribeText, avUser);
-                    if(taskProjectList.getSelectedItem() != null){
+                    if (taskProjectList.getSelectedItem() != null) {
                         String selectedProjectText = taskProjectList.getSelectedItem().toString();
-                        ProjectDataStoreHelper.addTaskProject(taskNameText,selectedProjectText);
+                        ProjectDataStoreHelper.addTaskProject(taskNameText, selectedProjectText);
                     }
-                }else {
+                } else {
                     Log.v(TAG, "please input task name");
                 }
 

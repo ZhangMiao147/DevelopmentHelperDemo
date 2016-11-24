@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/existing_tasks"
+        android:text="@string/task_list"
         android:layout_gravity="center_horizontal"
         android:textSize="26sp"
         android:layout_marginTop="10dp"
@@ -16,23 +16,16 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696900"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         />
 
-        <Spinner
-            android:id="@+id/spinner_project_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            ></Spinner>
-
-    <Button
-        android:id="@+id/add"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/project_task_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="add"/>
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

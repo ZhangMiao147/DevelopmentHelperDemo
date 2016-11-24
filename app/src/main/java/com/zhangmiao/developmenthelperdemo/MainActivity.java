@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG="DevelopmentHelperDemo";
 
-    private Button existingTasksButton;
+    private Button taskListButton;
     private Button createTasksButton;
     private Button taskStatisticsButton;
     private Button myTasksButton;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AVUser currentUser;
 
-    private ExistingTasksFragment existingTasksFragment;
+    private TaskListFragment taskListFragment;
     private CreateTasksFragment createTasksFragment;
     private MyTasksFragment myTasksFragment;
     private TaskStatisticsFragment taskStatisticsFragment;
@@ -42,14 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void initView()
     {
-        existingTasksButton = (Button)findViewById(R.id.existing_tasks_button);
+        taskListButton = (Button)findViewById(R.id.task_list_button);
         createTasksButton = (Button)findViewById(R.id.create_tasks_button);
         taskStatisticsButton = (Button)findViewById(R.id.task_statistics_button);
         myTasksButton = (Button)findViewById(R.id.my_tasks_button);
         personalCenterButton = (Button)findViewById(R.id.personal_center_button);
     }
     public void initEvent(){
-        existingTasksButton.setOnClickListener(this);
+        taskListButton.setOnClickListener(this);
         createTasksButton.setOnClickListener(this);
         taskStatisticsButton.setOnClickListener(this);
         myTasksButton.setOnClickListener(this);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void restartButton(){
-        existingTasksButton.setBackgroundColor(0xffffff);
+        taskListButton.setBackgroundColor(0xffffff);
         createTasksButton.setBackgroundColor(0xffffff);
         taskStatisticsButton.setBackgroundColor(0xffffff);
         myTasksButton.setBackgroundColor(0xffffff);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         restartButton();
         switch (v.getId()){
-            case R.id.existing_tasks_button:
+            case R.id.task_list_button:
                 setTabSelection(0);
                 break;
             case R.id.create_tasks_button:
@@ -94,12 +94,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hideFragments(transaction);
         switch (index){
             case 0:
-                existingTasksButton.setBackgroundColor(0xAA70f3ff);
-                if(existingTasksFragment == null){
-                    existingTasksFragment = new ExistingTasksFragment();
-                    transaction.add(R.id.content,existingTasksFragment);
+                taskListButton.setBackgroundColor(0xAA70f3ff);
+                if(taskListFragment == null){
+                    taskListFragment = new TaskListFragment();
+                    transaction.add(R.id.content,taskListFragment);
                 }else {
-                    transaction.show(existingTasksFragment);
+                    transaction.show(taskListFragment);
                 }
                 break;
             case 1:
@@ -145,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void hideFragments(FragmentTransaction transaction){
-        if(existingTasksFragment != null){
-            transaction.hide(existingTasksFragment);
+        if(taskListFragment != null){
+            transaction.hide(taskListFragment);
         }
         if(createTasksFragment != null){
             transaction.hide(createTasksFragment);

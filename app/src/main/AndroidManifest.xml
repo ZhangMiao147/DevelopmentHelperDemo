@@ -26,6 +26,10 @@
 
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".ForgetPasswordActivity"/>
+        <activity android:name=".ProjectInformationActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".TaskInformationActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <service android:name="com.avos.avoscloud.PushService" />
     </application>
 
