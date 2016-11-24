@@ -35,6 +35,7 @@ public class TaskInformationActivity extends AppCompatActivity {
 
     private Button receiveTaskButton;
 
+    //private Boolean activityFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +50,12 @@ public class TaskInformationActivity extends AppCompatActivity {
         taskDescribeTextView = (TextView) findViewById(R.id.task_information_task_describe);
         taskCreateDataTextView = (TextView) findViewById(R.id.task_information_task_create_date);
         taskCloseDataTextView = (TextView) findViewById(R.id.task_information_task_close_date);
-        receiveTaskButton = (Button)findViewById(R.id.task_information_receive_task);
+        receiveTaskButton = (Button) findViewById(R.id.task_information_receive_task);
         Intent intent = getIntent();
         String taskName = intent.getStringExtra("taskName");
-        String projectName = intent.getStringExtra("projectName");
+        final String buttonText = intent.getStringExtra("buttonText");
+        receiveTaskButton.setText(buttonText);
         taskNameTextView.setText(taskName);
-        taskProjectTextView.setText(projectName);
         if (!taskName.isEmpty()) {
             setData(taskName);
         }
@@ -70,22 +71,59 @@ public class TaskInformationActivity extends AppCompatActivity {
                     String taskId = avObject.getObjectId();
                     String taskDescribe = avObject.getString("taskDescribe");
                     String creatorName = avObject.getString("creatorName");
-                    final String[] finisherName = new String[]{ avObject.getString("finisherName")};
+                    final String[] finisherName = new String[]{avObject.getString("finisherName")};
+
+                    avObject.fetchInBackground("project", new GetCallback<AVObject>() {
+                        @Override
+                        public void done(AVObject avObject, AVException e) {
+                            if (e == null) {
+                                AVObject project = avObject.getAVObject("project");
+                                String projectName = project.getString("projectName");
+                                taskProjectTextView.setText(projectName);
+                            } else {
+                                Log.v(TAG, "TaskInformationActivity get project fail.error = " + e.getMessage());
+                            }
+                        }
+                    });
+
                     int state = avObject.getInt("state");
                     Date createDate = avObject.getCreatedAt();
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String createDateText = format.format(createDate);
-                    String closeDateText = "未关闭";
+                    final String[] closeDateText = new String[]{"未关闭"};
                     switch (state) {
                         case 0:
-                            break;
                         case 1:
+                            if(!receiveTaskButton.getText().equals("领取任务")){
+                                receiveTaskButton.setVisibility(View.VISIBLE);
+                                receiveTaskButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Log.v(TAG," 完成任务 ");
+                                        avObject.put("state", 2);
+                                        avObject.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(AVException e) {
+                                                if (e == null) {
+                                                    Log.v(TAG, "TaskData setState success");
+                                                    receiveTaskButton.setVisibility(View.GONE);
+                                                    Date closeDate = avObject.getUpdatedAt();
+                                                    closeDateText[0] = format.format(closeDate);
+                                                    taskCloseDataTextView.setText(closeDateText[0]);
+                                                } else {
+                                                    Log.v(TAG, "TaskData setState fail.error = " + e.getMessage());
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                             break;
                         case 2:
                         case 3:
                         case 4:
                             Date closeDate = avObject.getUpdatedAt();
-                            closeDateText = format.format(closeDate);
+                            closeDateText[0] = format.format(closeDate);
                             break;
                         default:
                             break;
@@ -101,7 +139,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 final AVUser currentUser = AVUser.getCurrentUser();
                                 avObject.put("finisher", currentUser);
-                                avObject.put("finisherName",currentUser.getUsername());
+                                avObject.put("finisherName", currentUser.getUsername());
                                 avObject.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(AVException e) {
@@ -110,6 +148,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                                             receiveTaskButton.setVisibility(Button.GONE);
                                             finisherName[0] = currentUser.getUsername();
                                             taskFinisherTextView.setText(finisherName[0]);
+
                                         } else {
                                             Log.v(TAG, "addFinisher fail.error = " + e.getMessage());
                                         }
@@ -119,9 +158,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                         });
                     }
                     taskFinisherTextView.setText(finisherName[0]);
-
-
-                    taskCloseDataTextView.setText(closeDateText);
+                    taskCloseDataTextView.setText(closeDateText[0]);
                     taskCreateDataTextView.setText(createDateText);
                 } else {
                     Log.v(TAG, "TaskInformationActivity getAVObject fail.error = " + e.getMessage());

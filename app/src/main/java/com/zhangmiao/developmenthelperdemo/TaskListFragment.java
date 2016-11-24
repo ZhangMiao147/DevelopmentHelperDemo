@@ -182,7 +182,8 @@ public class TaskListFragment extends Fragment {
                         Log.v(TAG, "onClick taskName = " + ((TextView) v).getText());
                         Intent intent = new Intent(mView.getContext(), TaskInformationActivity.class); //显式Intent
                         intent.putExtra("taskName", ((TextView) v).getText());
-                        intent.putExtra("projectName", projectName);
+                        //intent.putExtra("projectName", projectName);
+                        intent.putExtra("buttonText","领取任务");
                         startActivity(intent);
                     }
                 });
