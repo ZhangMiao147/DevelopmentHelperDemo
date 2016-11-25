@@ -50,25 +50,30 @@ public class TaskListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Log.v(TAG,"TaskListFragment onCreateView");
         mView = inflater.inflate(R.layout.activity_task_list, container, false);
+
+        mTaskAdapter = new TaskAdapter();
+        mProjectAdapter = new ProjectAdapter();
 
         recyclerView = (RecyclerView) mView.findViewById(R.id.project_task_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         recyclerView.setAdapter(mProjectAdapter);
 
+        initData();
+
         return mView;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mTaskAdapter = new TaskAdapter();
-        mProjectAdapter = new ProjectAdapter();
+    private void initData()
+    {
         AVQuery<AVObject> projectQuery = new AVQuery<>("ProjectData");
         projectQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
+                    Log.v(TAG, "task list get project data list success.");
                     for (int i = 0; i < list.size(); i++) {
                         final String[] projectName = new String[]{""};
                         projectName[0] = list.get(i).getString("projectName");

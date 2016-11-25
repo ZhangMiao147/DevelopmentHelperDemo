@@ -70,8 +70,67 @@ public class TaskInformationActivity extends AppCompatActivity {
                 if (e == null) {
                     String taskId = avObject.getObjectId();
                     String taskDescribe = avObject.getString("taskDescribe");
-                    String creatorName = avObject.getString("creatorName");
-                    final String[] finisherName = new String[]{avObject.getString("finisherName")};
+
+                    avObject.fetchInBackground("creator", new GetCallback<AVObject>() {
+                        @Override
+                        public void done(AVObject avObject, AVException e) {
+                            if (e == null) {
+                                AVUser creator = avObject.getAVUser("creator");
+                                String creatorName = creator.getUsername();
+                                taskCreatorTextView.setText(creatorName);
+                            } else {
+                                Log.v(TAG, "TaskInformationActivity get creator fail.error = " + e.getMessage());
+                            }
+                        }
+                    });
+
+                    final String[] finisherName = new String[]{""};
+
+                    avObject.fetchInBackground("finisher", new GetCallback<AVObject>() {
+                        @Override
+                        public void done(final AVObject avObject, AVException e) {
+                            Log.v(TAG,"avObject ID = " + avObject.getObjectId());
+                            if (e == null) {
+                                AVUser finisher = avObject.getAVUser("finisher");
+                                if(finisher != null) {
+                                    finisherName[0] = finisher.getUsername();
+                                    taskFinisherTextView.setText(finisherName[0]);
+                                }
+                                if (finisherName[0] == null || finisherName[0].isEmpty()) {
+                                    finisherName[0] = "任务未领取";
+                                    taskFinisherTextView.setText(finisherName[0]);
+                                    receiveTaskButton.setVisibility(Button.VISIBLE);
+                                    receiveTaskButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            final AVUser currentUser = AVUser.getCurrentUser();
+                                            avObject.put("finisher", currentUser);
+                                            avObject.saveInBackground(new SaveCallback() {
+                                                @Override
+                                                public void done(AVException e) {
+                                                    if (e == null) {
+                                                        Log.v(TAG, "addFinisher success");
+                                                        receiveTaskButton.setVisibility(Button.GONE);
+                                                        finisherName[0] = currentUser.getUsername();
+                                                        taskFinisherTextView.setText(finisherName[0]);
+
+                                                    } else {
+                                                        Log.v(TAG, "addFinisher fail.error = " + e.getMessage());
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+
+
+                            } else {
+                                Log.v(TAG, "TaskInformationActivity get creator fail.error = " + e.getMessage());
+                            }
+                        }
+                    });
+
+
 
                     avObject.fetchInBackground("project", new GetCallback<AVObject>() {
                         @Override
@@ -130,33 +189,8 @@ public class TaskInformationActivity extends AppCompatActivity {
                     }
                     taskIdTextView.setText(taskId);
                     taskDescribeTextView.setText(taskDescribe);
-                    taskCreatorTextView.setText(creatorName);
-                    if (finisherName[0] == null || finisherName[0].isEmpty()) {
-                        finisherName[0] = "任务未领取";
-                        receiveTaskButton.setVisibility(Button.VISIBLE);
-                        receiveTaskButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final AVUser currentUser = AVUser.getCurrentUser();
-                                avObject.put("finisher", currentUser);
-                                avObject.put("finisherName", currentUser.getUsername());
-                                avObject.saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(AVException e) {
-                                        if (e == null) {
-                                            Log.v(TAG, "addFinisher success");
-                                            receiveTaskButton.setVisibility(Button.GONE);
-                                            finisherName[0] = currentUser.getUsername();
-                                            taskFinisherTextView.setText(finisherName[0]);
 
-                                        } else {
-                                            Log.v(TAG, "addFinisher fail.error = " + e.getMessage());
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
+
                     taskFinisherTextView.setText(finisherName[0]);
                     taskCloseDataTextView.setText(closeDateText[0]);
                     taskCreateDataTextView.setText(createDateText);

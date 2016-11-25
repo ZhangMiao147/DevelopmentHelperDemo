@@ -46,25 +46,25 @@ public class ProjectInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_information);
 
-        projectNameTextView = (TextView)findViewById(R.id.project_information_project_name);
-        projectIdTextView = (TextView)findViewById(R.id.project_information_project_id);
-        projectCreatorTextView = (TextView)findViewById(R.id.project_information_project_creator);
-        projectMemberTextView = (TextView)findViewById(R.id.project_information_project_member);
-        projectDescribeTextView = (TextView)findViewById(R.id.project_information_project_describe);
-        projectCreateDataTextView = (TextView)findViewById(R.id.project_information_project_create_date);
-        projectCloseDataTextView =(TextView)findViewById(R.id.project_information_project_close_date);
+        projectNameTextView = (TextView) findViewById(R.id.project_information_project_name);
+        projectIdTextView = (TextView) findViewById(R.id.project_information_project_id);
+        projectCreatorTextView = (TextView) findViewById(R.id.project_information_project_creator);
+        projectMemberTextView = (TextView) findViewById(R.id.project_information_project_member);
+        projectDescribeTextView = (TextView) findViewById(R.id.project_information_project_describe);
+        projectCreateDataTextView = (TextView) findViewById(R.id.project_information_project_create_date);
+        projectCloseDataTextView = (TextView) findViewById(R.id.project_information_project_close_date);
      /*
         */
         Intent intent = getIntent();
         String projectName = intent.getStringExtra("projectName");
-        Log.v(TAG,"ProjectInformationActivity projectName = " + projectName);
+        Log.v(TAG, "ProjectInformationActivity projectName = " + projectName);
         projectNameTextView.setText(projectName);
-        if(!projectName.isEmpty()) {
+        if (!projectName.isEmpty()) {
             setData(projectName);
         }
     }
 
-    private void setData(final String projectName){
+    private void setData(final String projectName) {
         AVQuery<AVObject> query = new AVQuery<>("ProjectData");
         query.whereEqualTo("projectName", projectName);
         query.getFirstInBackground(new GetCallback<AVObject>() {
@@ -73,37 +73,55 @@ public class ProjectInformationActivity extends AppCompatActivity {
                 if (e == null) {
                     String projectId = avObject.getObjectId();
                     String projectDescribe = avObject.getString("projectDescribe");
-                    String creatorName = avObject.getString("creatorName");
+
+                    avObject.fetchInBackground("creator", new GetCallback<AVObject>() {
+                        @Override
+                        public void done(AVObject avObject, AVException e) {
+                            if (e == null) {
+                                AVUser creator = avObject.getAVUser("creator");
+                                String creatorName = creator.getUsername();
+                                projectCreatorTextView.setText(creatorName);
+                            } else {
+                                Log.v(TAG, "ProjectInformationActivity get creator fail.error = " + e.getMessage());
+                            }
+                        }
+                    });
 
                     int state = avObject.getInt("state");
                     Date createDate = avObject.getCreatedAt();
-                    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String createDateText=format.format(createDate);
-                    String closeDateText="未关闭";
-                    switch (state){
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String createDateText = format.format(createDate);
+                    String closeDateText = "未关闭";
+                    switch (state) {
                         case 0:
                             break;
                         case 1:
                         case 2:
                         case 3:
                             Date closeDate = avObject.getUpdatedAt();
-                            closeDateText=format.format(closeDate);
+                            closeDateText = format.format(closeDate);
                             break;
                         default:
                             break;
                     }
-                    String memberText = "无项目成员";
-                    ArrayList<AVUser> member = (ArrayList<AVUser>) avObject.getList("member");
-                    if(member != null) {
-                        for (AVUser user : member) {
-                            memberText += user.getUsername() + " ";
+
+                    avObject.fetchIfNeededInBackground("member", new GetCallback<AVObject>() {
+                        @Override
+                        public void done(AVObject avObject, AVException e) {
+                            ArrayList<AVUser> memberList = (ArrayList<AVUser>) avObject.getList("member");
+                            String membersNameText = "";
+                            for (AVUser member : memberList) {
+                                String memberName = member.getUsername();
+                                membersNameText += memberName + " ";
+                            }
+                            projectMemberTextView.setText(membersNameText);
                         }
-                    }
+                    });
+
                     projectCloseDataTextView.setText(closeDateText);
                     projectIdTextView.setText(projectId);
-                    projectCreatorTextView.setText(creatorName);
                     projectDescribeTextView.setText(projectDescribe);
-                    projectMemberTextView.setText(memberText);
+
                     projectCreateDataTextView.setText(createDateText);
                 } else {
                     Log.v(TAG, "ProjectInformationActivity getAVObject fail.error = " + e.getMessage());

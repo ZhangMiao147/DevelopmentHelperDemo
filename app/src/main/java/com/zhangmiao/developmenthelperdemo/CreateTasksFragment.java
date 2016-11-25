@@ -67,18 +67,6 @@ public class CreateTasksFragment extends Fragment implements View.OnClickListene
                 android.R.layout.simple_spinner_item, projectList);
         projectListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         taskProjectList.setAdapter(projectListAdapter);
-        taskProjectList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Log.v(TAG, " onItemSelected ");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         return view;
     }
 

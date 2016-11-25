@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -40,40 +42,45 @@ public class PersonalCenterFragment extends Fragment {
     private EditText userName;
     private EditText password;
 
+    private LinearLayout personCenterLayout;
+    private LinearLayout signInLayout;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         currentUser = AVUser.getCurrentUser();
+        view = inflater.inflate(R.layout.activity_personal_center,container,false);
+        personCenterLayout = (LinearLayout)view.findViewById(R.id.personal_center_layout);
+        signInLayout = (LinearLayout)view.findViewById(R.id.sign_in_layout);
         if(currentUser == null){
-            view = inflater.inflate(R.layout.sign_in,container,false);
-            signInView = view;
-        }else {
-           view = inflater.inflate(R.layout.activity_personal_center,container,false);
-           personalCenterView = view;
+            personCenterLayout.setVisibility(View.GONE);
+            initSignInLayout();
+        }else{
+            signInLayout.setVisibility(View.GONE);
+            initPersonalCenterLayout();
         }
-        initView();
+
         return view;
     }
 
-    public void initView(){
-        if(signInView != null){
-            signIn = (Button)signInView.findViewById(R.id.sign_in_button);
-            register = (Button)signInView.findViewById(R.id.sign_in_register);
-            userName = (EditText)signInView.findViewById(R.id.sign_in_user_name);
-            password = (EditText)signInView.findViewById(R.id.sign_in_password);
-            forgetPassword = (Button)signInView.findViewById(R.id.sign_in_forget_password);
-            signIn.setOnClickListener(signInListener);
-            register.setOnClickListener(registerListener);
-            forgetPassword.setOnClickListener(forgetPasswordListener);
+    public void initPersonalCenterLayout(){
+        currentUser = AVUser.getCurrentUser();
+        if(currentUser != null){
+            TextView personalCenterUserName = (TextView)view.findViewById(R.id.personal_center_username);
+            personalCenterUserName.setText(currentUser.getUsername());
         }
-       if(personalCenterView != null){
-           currentUser = AVUser.getCurrentUser();
-           if(currentUser != null){
-              TextView personalCenterUserName = (TextView)personalCenterView.findViewById(R.id.personal_center_username);
-                personalCenterUserName.setText(currentUser.getUsername());
-           }
-       }
+    }
+
+    public void initSignInLayout(){
+        signIn = (Button)view.findViewById(R.id.sign_in_button);
+        register = (Button)view.findViewById(R.id.sign_in_register);
+        userName = (EditText)view.findViewById(R.id.sign_in_user_name);
+        password = (EditText)view.findViewById(R.id.sign_in_password);
+        forgetPassword = (Button)view.findViewById(R.id.sign_in_forget_password);
+        signIn.setOnClickListener(signInListener);
+        register.setOnClickListener(registerListener);
+        forgetPassword.setOnClickListener(forgetPasswordListener);
     }
 
     View.OnClickListener signInListener = new View.OnClickListener() {
@@ -101,6 +108,9 @@ public class PersonalCenterFragment extends Fragment {
                                     customAlertDialog.getAlertDialog().dismiss();
                                 }
                             });
+                            signInLayout.setVisibility(View.GONE);
+                            personCenterLayout.setVisibility(View.VISIBLE);
+                            initPersonalCenterLayout();
 
                         } else {
                             Log.v(TAG, "sign in fail,error = " + e.getMessage());
