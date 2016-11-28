@@ -19,10 +19,11 @@
         android:layout_marginTop="10dp"
         />
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/task_statistics_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/task_statistics_project_creator"
-        android:text="FirstProject creator : "/>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
 
 </LinearLayout>

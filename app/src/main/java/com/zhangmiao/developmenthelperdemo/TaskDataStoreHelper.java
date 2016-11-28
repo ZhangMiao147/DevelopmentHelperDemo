@@ -46,6 +46,7 @@ public class TaskDataStoreHelper {
                 if (e == null) {
                     Log.v(TAG, "addFinisher getAVObject success");
                     avObject.put("finisher", finisher);
+                    avObject.put("finisherName",finisher.getUsername());
                     avObject.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(AVException e) {

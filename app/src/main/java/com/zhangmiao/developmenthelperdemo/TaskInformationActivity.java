@@ -105,6 +105,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                                         public void onClick(View v) {
                                             final AVUser currentUser = AVUser.getCurrentUser();
                                             avObject.put("finisher", currentUser);
+                                            avObject.put("finisherName",currentUser.getUsername());
                                             avObject.saveInBackground(new SaveCallback() {
                                                 @Override
                                                 public void done(AVException e) {
