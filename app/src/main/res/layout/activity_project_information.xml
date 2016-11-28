@@ -108,7 +108,7 @@
         />
 
     <Button
-        android:id="@+id/task_information_receive_task"
+        android:id="@+id/project_information_project_close_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/close_project"

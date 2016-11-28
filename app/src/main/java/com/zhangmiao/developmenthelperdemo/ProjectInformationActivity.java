@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -11,6 +13,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.GetCallback;
+import com.avos.avoscloud.SaveCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class ProjectInformationActivity extends AppCompatActivity {
     private TextView projectMemberTextView;
     private TextView projectCreateDataTextView;
     private TextView projectCloseDataTextView;
+    private Button closeProjectButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +42,8 @@ public class ProjectInformationActivity extends AppCompatActivity {
         projectDescribeTextView = (TextView) findViewById(R.id.project_information_project_describe);
         projectCreateDataTextView = (TextView) findViewById(R.id.project_information_project_create_date);
         projectCloseDataTextView = (TextView) findViewById(R.id.project_information_project_close_date);
-     /*
-        */
+        closeProjectButton = (Button)findViewById(R.id.project_information_project_close_button);
+
         Intent intent = getIntent();
         String projectName = intent.getStringExtra("projectName");
         Log.v(TAG, "ProjectInformationActivity projectName = " + projectName);
@@ -56,7 +60,7 @@ public class ProjectInformationActivity extends AppCompatActivity {
         query.whereEqualTo("projectName", projectName);
         query.getFirstInBackground(new GetCallback<AVObject>() {
             @Override
-            public void done(AVObject avObject, AVException e) {
+            public void done(final AVObject avObject, AVException e) {
                 if (e == null) {
                     String projectId = avObject.getObjectId();
                     String projectDescribe = avObject.getString("projectDescribe");
@@ -81,8 +85,31 @@ public class ProjectInformationActivity extends AppCompatActivity {
                     String closeDateText = "未关闭";
                     switch (state) {
                         case 0:
+                            closeProjectButton.setVisibility(View.VISIBLE);
+                            closeProjectButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    avObject.put("state", 1);
+                                    avObject.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(AVException e) {
+                                            if (e == null) {
+                                                Log.v(TAG, "setState success");
+                                                closeProjectButton.setVisibility(View.GONE);
+                                                Date closeDate = avObject.getUpdatedAt();
+                                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+                                                String closeDateText = format.format(closeDate);
+                                                projectCloseDataTextView.setText(closeDateText);
+                                            } else {
+                                                Log.v(TAG, "setState fail.error = " + e.getMessage());
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                             break;
                         case 1:
+                            closeProjectButton.setVisibility(View.GONE);
                             Date closeDate = avObject.getUpdatedAt();
                             closeDateText = format.format(closeDate);
                             break;

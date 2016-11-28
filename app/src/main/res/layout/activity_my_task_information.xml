@@ -126,10 +126,9 @@
         android:id="@+id/task_information_receive_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/receive_task"
+        android:text="@string/close_task"
         android:layout_gravity="center"
         android:background="@color/buttonColor"
-        android:visibility="gone"
         />
 
 </LinearLayout>
