@@ -1,13 +1,9 @@
 package com.zhangmiao.developmenthelperdemo;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,30 +17,18 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 
-/**
- * Created by zhangmiao on 2016/11/18.
- */
 public class PersonalCenterFragment extends Fragment {
 
     private static final String TAG="DevelopmentHelperDemo";
 
     private View view;
-    private View signInView;
-    private View personalCenterView;
     private AVUser currentUser;
-
-
-    private Button signIn;
-    private Button register;
-
-    private Button forgetPassword;
 
     private EditText userName;
     private EditText password;
 
     private LinearLayout personCenterLayout;
     private LinearLayout signInLayout;
-
 
     @Nullable
     @Override
@@ -60,7 +44,6 @@ public class PersonalCenterFragment extends Fragment {
             signInLayout.setVisibility(View.GONE);
             initPersonalCenterLayout();
         }
-
         return view;
     }
 
@@ -73,11 +56,11 @@ public class PersonalCenterFragment extends Fragment {
     }
 
     public void initSignInLayout(){
-        signIn = (Button)view.findViewById(R.id.sign_in_button);
-        register = (Button)view.findViewById(R.id.sign_in_register);
+        Button signIn = (Button)view.findViewById(R.id.sign_in_button);
+        Button register = (Button)view.findViewById(R.id.sign_in_register);
         userName = (EditText)view.findViewById(R.id.sign_in_user_name);
         password = (EditText)view.findViewById(R.id.sign_in_password);
-        forgetPassword = (Button)view.findViewById(R.id.sign_in_forget_password);
+        Button forgetPassword = (Button)view.findViewById(R.id.sign_in_forget_password);
         signIn.setOnClickListener(signInListener);
         register.setOnClickListener(registerListener);
         forgetPassword.setOnClickListener(forgetPasswordListener);
@@ -90,9 +73,7 @@ public class PersonalCenterFragment extends Fragment {
             Log.v(TAG, "username = " + userNameText);
             final String passwordText = password.getText().toString();
             Log.v(TAG, "password = " + passwordText);
-            if(userNameText.isEmpty() || passwordText.isEmpty()){
-                return;
-            }else {
+            if(!userNameText.isEmpty() && !passwordText.isEmpty()){
                 AVUser.logInInBackground(userNameText, passwordText, new LogInCallback<AVUser>() {
                     @Override
                     public void done(AVUser avUser, AVException e) {

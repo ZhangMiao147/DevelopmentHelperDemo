@@ -27,6 +27,7 @@
     <string name="creator">创建者：</string>
     <string name="create_date">创建时间：</string>
     <string name="close_date">关闭时间：</string>
+    <string name="close_project">关闭项目</string>
     <string name="project_member">项目成员：</string>
     <string name="task_id">任务ID：</string>
     <string name="finisher">完成者：</string>

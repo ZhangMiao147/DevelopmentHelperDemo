@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="first_level_indentation">10dp</dimen>
+    <dimen name="second_level_indentation">20dp</dimen>
+    <dimen name="third_level_indentation">30dp</dimen>
 </resources>

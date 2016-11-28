@@ -9,14 +9,14 @@
         android:text="@string/register"
         android:layout_gravity="center_horizontal"
         android:textSize="26sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         />
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696900"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/first_level_indentation"
         />
 
     <LinearLayout
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         >
         <TextView
             android:layout_width="100dp"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         >
         <TextView
             android:layout_width="100dp"
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         >
         <TextView
             android:layout_width="100dp"
@@ -95,12 +95,11 @@
         android:id="@+id/register_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/second_level_indentation"
+        android:layout_marginRight="@dimen/second_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation"
         android:text="@string/register"
         android:layout_gravity="center"
         android:background="#11bbff"
         />
-
 </LinearLayout>

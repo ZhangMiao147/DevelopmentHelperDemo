@@ -8,13 +8,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="fail"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="@dimen/first_level_indentation"/>
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696900"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/first_level_indentation"
         />
 
     <TextView
@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="fail reason"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="@dimen/first_level_indentation"/>
 
     <Button
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         android:id="@+id/sure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

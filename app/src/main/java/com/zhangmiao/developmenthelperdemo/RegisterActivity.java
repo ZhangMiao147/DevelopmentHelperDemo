@@ -1,8 +1,5 @@
 package com.zhangmiao.developmenthelperdemo;
 
-import android.app.AlertDialog;
-import android.app.DownloadManager;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,13 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
 
-/**
- * Created by zhangmiao on 2016/11/17.
- */
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG="DevelopmentHelperDemo";
@@ -25,7 +18,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mailbox;
     private EditText firstPassword;
     private EditText secondPassword;
-    private Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
         mailbox = (EditText)findViewById(R.id.register_mailbox);
         firstPassword = (EditText)findViewById(R.id.register_first_password);
         secondPassword = (EditText)findViewById(R.id.register_second_password);
-        register = (Button)findViewById(R.id.register_register);
-
-        register.setOnClickListener(registerClcikListener);
+        Button register = (Button)findViewById(R.id.register_register);
+        if(register != null) {
+            register.setOnClickListener(registerClcikListener);
+        }
 
     }
 

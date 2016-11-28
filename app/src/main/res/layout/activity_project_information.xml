@@ -8,102 +8,113 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/project_name"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:textSize="20sp"/>
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         android:background="#696900" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:text="@string/project_id"/>
     <TextView
         android:id="@+id/project_information_project_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:text="xxxxxxx"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:text="@string/project_describe"/>
     <TextView
         android:id="@+id/project_information_project_describe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:text="xxxxxxx"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginLeft="@dimen/first_level_indentation"
         android:text="@string/creator"/>
     <TextView
         android:id="@+id/project_information_project_creator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:text="xxxxxxx"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginLeft="@dimen/first_level_indentation"
         android:text="@string/project_member"/>
     <TextView
         android:id="@+id/project_information_project_member"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:text="xxxxxxx"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:text="@string/create_date"/>
     <TextView
         android:id="@+id/project_information_project_create_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:text="xxxxxxx"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:text="@string/close_date"/>
     <TextView
         android:id="@+id/project_information_project_close_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:text="xxxxxxx"
         />
+
+    <Button
+        android:id="@+id/task_information_receive_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close_project"
+        android:layout_gravity="center"
+        android:background="@color/buttonColor"
+        android:visibility="visible"
+        />
+
 </LinearLayout>

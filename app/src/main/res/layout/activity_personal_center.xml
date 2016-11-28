@@ -15,14 +15,14 @@
         android:text="@string/personal_center"
         android:layout_gravity="center_horizontal"
         android:textSize="26sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         />
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696900"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         />
 
     <TextView
@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:text="zhang"
         android:textSize="24sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginTop="@dimen/third_level_indentation"
+        android:layout_marginBottom="@dimen/third_level_indentation"
+        android:layout_marginLeft="@dimen/third_level_indentation"
         />
 
     <View
@@ -46,14 +46,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="通用设置"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginLeft="@dimen/second_level_indentation"
         />
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696999"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
         />
     </LinearLayout>
 
@@ -67,14 +67,14 @@
             android:text="@string/personal_center"
             android:layout_gravity="center_horizontal"
             android:textSize="26sp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/first_level_indentation"
             />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="#696900"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/first_level_indentation"
             />
 
         <LinearLayout
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/first_level_indentation"
             >
             <TextView
                 android:layout_width="60dp"
@@ -117,9 +117,9 @@
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/second_level_indentation"
+            android:layout_marginRight="@dimen/second_level_indentation"
+            android:layout_marginTop="@dimen/first_level_indentation"
             android:text="@string/sign_in"
             android:layout_gravity="center"
             android:background="@color/buttonColor"
@@ -127,9 +127,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
+            android:paddingLeft="@dimen/second_level_indentation"
+            android:paddingRight="@dimen/second_level_indentation"
+            android:paddingTop="@dimen/first_level_indentation"
             >
             <Button
                 style="?android:attr/buttonBarStyle"

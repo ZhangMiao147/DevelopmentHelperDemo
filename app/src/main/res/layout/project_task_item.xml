@@ -7,7 +7,7 @@
         android:id="@+id/project_task_project_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="@dimen/first_level_indentation"
         android:textSize="20sp"
         android:text="@string/project_name"/>
 
@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696900"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/first_level_indentation"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#696900"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginBottom="@dimen/first_level_indentation"
         />
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.zhangmiao.developmenthelperdemo;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,7 +25,6 @@ public class MyTasksFragment extends Fragment {
 
     private static final String TAG = "DevelopmentHelperDemo";
 
-    private RecyclerView myTaskList;
     private MyTaskAdapter mMyTaskAdapter;
     private final List<String> mMyTaskList = new ArrayList<>();
     private View mView;
@@ -34,16 +32,10 @@ public class MyTasksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.activity_my_tasks,container,false);
-        myTaskList = (RecyclerView)mView.findViewById(R.id.my_tasks_rv);
+        RecyclerView myTaskList = (RecyclerView)mView.findViewById(R.id.my_tasks_rv);
         myTaskList.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         mMyTaskAdapter = new MyTaskAdapter();
-        myTaskList.setAdapter(mMyTaskAdapter);
-        return mView;
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
         AVQuery<AVObject> query = new AVQuery<>("TaskData");
         AVUser currentUser = AVUser.getCurrentUser();
         query.whereEqualTo("finisher", currentUser);
@@ -59,6 +51,8 @@ public class MyTasksFragment extends Fragment {
                 }
             }
         });
+        myTaskList.setAdapter(mMyTaskAdapter);
+        return mView;
     }
 
     class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHolder> {
@@ -80,10 +74,10 @@ public class MyTasksFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Log.v(TAG, "onClick taskName = " + ((TextView) v).getText());
-                    Intent intent = new Intent(mView.getContext(), TaskInformationActivity.class);
-                    intent.putExtra("taskName", ((TextView) v).getText());
-                    intent.putExtra("buttonText","完成任务");
-                    startActivity(intent);
+                    //Intent intent = new Intent(mView.getContext(), TaskInformationActivity.class);
+                    //intent.putExtra("taskName", ((TextView) v).getText());
+                    //intent.putExtra("buttonText","完成任务");
+                    //startActivity(intent);
                 }
             });
         }

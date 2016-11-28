@@ -1,40 +1,27 @@
 package com.zhangmiao.developmenthelperdemo;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
 
-import java.io.DataInput;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by zhangmiao on 2016/11/18.
- */
 public class TaskListFragment extends Fragment {
 
     private static final String TAG = "DevelopmentHelperDemo";
@@ -42,7 +29,6 @@ public class TaskListFragment extends Fragment {
 
     private final Map<String, List<String>> mProjectTaskMap = new HashMap<>();
 
-    private RecyclerView recyclerView;
     private ProjectAdapter mProjectAdapter;
     private TaskAdapter mTaskAdapter;
     private final List<String> mProject = new ArrayList<>();
@@ -57,7 +43,7 @@ public class TaskListFragment extends Fragment {
         mTaskAdapter = new TaskAdapter();
         mProjectAdapter = new ProjectAdapter();
 
-        recyclerView = (RecyclerView) mView.findViewById(R.id.project_task_rv);
+        RecyclerView recyclerView = (RecyclerView) mView.findViewById(R.id.project_task_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         recyclerView.setAdapter(mProjectAdapter);
 
@@ -80,7 +66,7 @@ public class TaskListFragment extends Fragment {
                         mProject.add(projectName[0]);
                         AVQuery<AVObject> query = new AVQuery<>("TaskData");
                         query.whereEqualTo("project", list.get(i));
-                        final List<String> taskList = new ArrayList<String>();
+                        final List<String> taskList = new ArrayList<>();
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
@@ -111,8 +97,7 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public ProjectViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            ProjectViewHolder holder = new ProjectViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.project_task_item, parent, false));
-            return holder;
+            return new ProjectViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.project_task_item, parent, false));
         }
 
         @Override
@@ -173,8 +158,7 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TaskViewHolder holder = new TaskViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.task_item, null, false));
-            return holder;
+            return new TaskViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.task_item, null, false));
         }
 
         @Override
@@ -187,8 +171,7 @@ public class TaskListFragment extends Fragment {
                         Log.v(TAG, "onClick taskName = " + ((TextView) v).getText());
                         Intent intent = new Intent(mView.getContext(), TaskInformationActivity.class); //显式Intent
                         intent.putExtra("taskName", ((TextView) v).getText());
-                        //intent.putExtra("projectName", projectName);
-                        intent.putExtra("buttonText","领取任务");
+                        intent.putExtra("projectName", projectName);
                         startActivity(intent);
                     }
                 });

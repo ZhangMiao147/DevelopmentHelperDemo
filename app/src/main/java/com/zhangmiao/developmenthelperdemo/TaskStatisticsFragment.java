@@ -28,9 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by zhangmiao on 2016/11/18.
- */
 public class TaskStatisticsFragment extends Fragment {
 
     private static final String TAG = "DevelopmentHelperDemo";
@@ -74,7 +71,8 @@ public class TaskStatisticsFragment extends Fragment {
                         list.get(i).fetchIfNeededInBackground("member", new GetCallback<AVObject>() {
                             @Override
                             public void done(AVObject avObject, AVException e) {
-                                ArrayList<AVUser> memberList = (ArrayList<AVUser>)avObject.getList("member");
+                                @SuppressWarnings("unchecked")
+                                ArrayList<AVUser> memberList = (ArrayList<AVUser>) avObject.getList("member");
                                 final Map<String, String> taskNumberMap = new HashMap<>();
                                 for (int n = 0; n < memberList.size(); n++) {
                                     taskNumberMap.put(memberList.get(n).getUsername(), 0 + "");
@@ -86,7 +84,7 @@ public class TaskStatisticsFragment extends Fragment {
                                     public void done(List<AVObject> list, AVException e) {
                                         for (int m = 0; m < list.size(); m++) {
                                             String finisherName = list.get(m).getString("finisherName");
-                                            if(finisherName != null && !finisherName.isEmpty()) {
+                                            if (finisherName != null && !finisherName.isEmpty()) {
                                                 String taskSize = taskNumberMap.get(finisherName);
 
                                                 taskSize = (Integer.parseInt(taskSize) + 1) + "";
