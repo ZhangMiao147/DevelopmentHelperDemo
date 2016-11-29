@@ -33,4 +33,6 @@
     <string name="finisher">完成者：</string>
     <string name="receive_task">领取任务</string>
     <string name="close_task">关闭任务</string>
+    <string name="change">修改</string>
+    <string name="no_text">XXXXXXX</string>
 </resources>

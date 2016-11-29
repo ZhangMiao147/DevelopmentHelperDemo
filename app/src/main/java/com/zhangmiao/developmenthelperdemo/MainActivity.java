@@ -4,11 +4,11 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,17 +27,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PersonalCenterFragment personalCenterFragment;
 
     private FragmentManager fragmentManager;
+    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         AVOSCloud.initialize(this, "EcFJGH8b65CdkW9EMnB5RyjA-gzGzoHsz", "GxioJBEEkj5DHvMWzkMhcaqS");
         initView();
         initEvent();
         fragmentManager = getFragmentManager();
     }
+
     private void initView()
     {
         taskListButton = (Button)findViewById(R.id.task_list_button);
@@ -68,18 +72,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.task_list_button:
                 setTabSelection(0);
+                toolbar.setTitle(R.string.task_list);
                 break;
             case R.id.create_tasks_button:
                 setTabSelection(1);
+                toolbar.setTitle(R.string.create_task);
                 break;
             case R.id.task_statistics_button:
                 setTabSelection(2);
+                toolbar.setTitle(R.string.task_statistics);
                 break;
             case R.id.my_tasks_button:
                 setTabSelection(3);
+                toolbar.setTitle(R.string.my_tasks);
                 break;
             case R.id.personal_center_button:
                 setTabSelection(4);
+                toolbar.setTitle(R.string.personal_center);
                 break;
             default:
                 break;

@@ -6,4 +6,5 @@
     <dimen name="first_level_indentation">10dp</dimen>
     <dimen name="second_level_indentation">20dp</dimen>
     <dimen name="third_level_indentation">30dp</dimen>
+    <dimen name="change_text_size">12sp</dimen>
 </resources>

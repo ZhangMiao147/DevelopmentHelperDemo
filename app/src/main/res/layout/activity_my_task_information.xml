@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/task_information_task_name"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/task_name"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:textSize="20sp"/>
+        android:layout_marginStart="@dimen/first_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation">
+
+        <TextView
+            android:id="@+id/my_task_information_task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_name"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/change_task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/my_task_information_task_name"
+            android:paddingEnd="@dimen/first_level_indentation"
+            android:paddingStart="@dimen/first_level_indentation"
+            android:text="@string/change"
+            android:textColor="@color/change_text_color"
+            android:textSize="@dimen/change_text_size" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="wrap_content"
@@ -21,114 +40,134 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/task_id"/>
+        android:text="@string/task_id" />
+
     <TextView
-        android:id="@+id/task_information_task_id"
+        android:id="@+id/my_task_information_task_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/task_describe"/>
-    <TextView
-        android:id="@+id/task_information_task_describe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
+        android:text="@string/no_text" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/creator"/>
-    <TextView
-        android:id="@+id/task_information_task_creator"
+        android:text="@string/task_describe" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
+        android:layout_marginStart="@dimen/first_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation">
+
+        <TextView
+            android:id="@+id/my_task_information_task_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/first_level_indentation"
+            android:text="@string/no_text" />
+
+        <TextView
+            android:id="@+id/change_task_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/my_task_information_task_describe"
+            android:paddingEnd="@dimen/first_level_indentation"
+            android:paddingStart="@dimen/first_level_indentation"
+            android:text="@string/change"
+            android:textColor="@color/change_text_color"
+            android:textSize="@dimen/change_text_size" />
+    </RelativeLayout>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/finisher"/>
+        android:text="@string/creator" />
+
     <TextView
-        android:id="@+id/task_information_task_finisher"
+        android:id="@+id/my_task_information_task_creator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/second_level_indentation"
         android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
+        android:text="@string/no_text" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
         android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/belong_of_project"/>
-    <TextView
-        android:id="@+id/task_information_task_project"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
+        android:text="@string/finisher" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/create_date"/>
-    <TextView
-        android:id="@+id/task_information_task_create_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:text="@string/close_date"/>
-    <TextView
-        android:id="@+id/task_information_task_close_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:text="xxxxxxx"
-        />
-
-    <Button
-        android:id="@+id/task_information_receive_task"
+        android:id="@+id/my_task_information_task_finisher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/close_task"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
+        android:text="@string/no_text" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:text="@string/belong_of_project" />
+
+    <TextView
+        android:id="@+id/my_task_information_task_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_marginStart="@dimen/second_level_indentation"
+        android:text="@string/no_text" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:text="@string/create_date" />
+
+    <TextView
+        android:id="@+id/my_task_information_task_create_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/second_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:text="@string/no_text" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/first_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:text="@string/close_date" />
+
+    <TextView
+        android:id="@+id/my_task_information_task_close_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/second_level_indentation"
+        android:layout_marginTop="@dimen/first_level_indentation"
+        android:text="@string/no_text" />
+
+    <Button
+        android:id="@+id/my_task_information_close_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/buttonColor"
-        />
+        android:text="@string/close_task" />
 
 </LinearLayout>

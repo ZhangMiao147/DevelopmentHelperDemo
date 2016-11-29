@@ -74,10 +74,9 @@ public class MyTasksFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Log.v(TAG, "onClick taskName = " + ((TextView) v).getText());
-                    //Intent intent = new Intent(mView.getContext(), TaskInformationActivity.class);
-                    //intent.putExtra("taskName", ((TextView) v).getText());
-                    //intent.putExtra("buttonText","完成任务");
-                    //startActivity(intent);
+                    Intent intent = new Intent(mView.getContext(), MyTaskInformationActivity.class);
+                    intent.putExtra("taskName", ((TextView) v).getText());
+                    startActivity(intent);
                 }
             });
         }

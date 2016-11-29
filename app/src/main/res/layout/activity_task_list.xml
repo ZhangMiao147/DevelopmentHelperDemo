@@ -3,24 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_list"
-        android:layout_gravity="center_horizontal"
-        android:textSize="26sp"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#696900"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginBottom="@dimen/first_level_indentation"
-        />
-
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/first_level_indentation"
         android:id="@+id/project_task_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

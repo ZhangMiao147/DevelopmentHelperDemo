@@ -9,21 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/personal_center"
-        android:layout_gravity="center_horizontal"
-        android:textSize="26sp"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#696900"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        />
 
     <TextView
         android:id="@+id/personal_center_username"
@@ -60,22 +45,6 @@
     <LinearLayout android:id="@+id/sign_in_layout"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/personal_center"
-            android:layout_gravity="center_horizontal"
-            android:textSize="26sp"
-            android:layout_marginTop="@dimen/first_level_indentation"
-            />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="#696900"
-            android:layout_margin="@dimen/first_level_indentation"
-            />
 
         <LinearLayout
             android:layout_width="wrap_content"

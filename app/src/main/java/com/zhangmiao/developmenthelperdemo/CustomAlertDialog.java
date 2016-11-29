@@ -2,17 +2,25 @@ package com.zhangmiao.developmenthelperdemo;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class CustomAlertDialog {
     private final AlertDialog alertDialog;
+    private final AlertDialog.Builder builder;
     private boolean flag=true;
+    private Context context;
     public CustomAlertDialog(Context context){
+        this.context = context;
+        builder = new AlertDialog.Builder(context);
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.show();
     }
+
 
     public void setSuccessAlertDialog(){
         flag = true;
