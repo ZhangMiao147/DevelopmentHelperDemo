@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sign_in_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/mz_list_icon_large_width"
+        android:layout_height="@dimen/mz_list_icon_item_height_large"
+        android:src="@drawable/app_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mz_list_card_1_little_title_height"
+        android:text="@string/app_name"
+        android:textColor="@color/mz_theme_color_blue"
+        android:textSize="@dimen/mz_text_size_large" />
+
+    <EditText
+        android:id="@+id/sign_in_user_name"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mz_edit_text_background_dialog_blue"
+        android:layout_marginTop="@dimen/mz_alertDialog_title_margin_top"
+        android:layout_marginBottom="@dimen/mz_alertDialog_title_margin_top"
+        android:scrollbars="vertical"
+        android:hint="@string/user_name"
+        android:paddingLeft="@dimen/mz_alert_dialog_edittext_inner_padding_left"
+        android:paddingBottom="@dimen/mz_alert_dialog_edittext_inner_padding_bottom"
+        android:textColorHint="@color/mz_edittext_preference_hint_text_color"
+        android:textSize="@dimen/mz_list_icon_item_text_size"/>
+
+    <EditText
+        android:id="@+id/sign_in_password"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mz_edit_text_background_dialog_blue"
+        android:layout_marginTop="@dimen/mz_alertDialog_title_margin_top"
+        android:layout_marginBottom="@dimen/mz_alertDialog_title_margin_top"
+        android:scrollbars="vertical"
+        android:hint="@string/password"
+        android:paddingLeft="@dimen/mz_alert_dialog_edittext_inner_padding_left"
+        android:paddingBottom="@dimen/mz_alert_dialog_edittext_inner_padding_bottom"
+        android:textColorHint="@color/mz_edittext_preference_hint_text_color"
+        android:textSize="@dimen/mz_list_icon_item_text_size"/>
+
+    <Button
+        android:id="@+id/sign_in_button"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/second_level_indentation"
+        android:layout_marginRight="@dimen/second_level_indentation"
+        android:background="@color/mz_theme_color_blue"
+        android:text="@string/sign_in"
+        android:textColor="@color/mz_selection_button_text_color"
+        android:textSize="@dimen/mz_selection_button_text_size"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/second_level_indentation"
+        android:paddingRight="@dimen/second_level_indentation"
+        android:paddingTop="@dimen/first_level_indentation">
+
+        <Button
+            android:id="@+id/sign_in_register"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/mz_theme_color_blue"
+            android:text="@string/register" />
+
+        <Button
+            android:id="@+id/sign_in_forget_password"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/mz_theme_color_blue"
+            android:text="@string/forget_password" />
+    </RelativeLayout>
+
+</LinearLayout>

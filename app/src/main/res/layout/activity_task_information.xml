@@ -128,7 +128,8 @@
         android:layout_height="wrap_content"
         android:text="@string/receive_task"
         android:layout_gravity="center"
-        android:background="@color/buttonColor"
+        android:background="@color/mz_theme_color_blue"
+        android:textColor="@color/mz_selection_button_text_color"
         android:visibility="gone"
         />
 

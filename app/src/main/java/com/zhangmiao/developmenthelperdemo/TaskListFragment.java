@@ -1,26 +1,32 @@
 package com.zhangmiao.developmenthelperdemo;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import flyme.support.v7.widget.DefaultItemAnimator;
+import flyme.support.v7.widget.LinearLayoutManager;
+import flyme.support.v7.widget.MzItemDecoration;
+import flyme.support.v7.widget.RecyclerView;
 
 public class TaskListFragment extends Fragment {
 
@@ -32,11 +38,11 @@ public class TaskListFragment extends Fragment {
     private ProjectAdapter mProjectAdapter;
     private TaskAdapter mTaskAdapter;
     private final List<String> mProject = new ArrayList<>();
+    private AVUser mCurrentUser;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         Log.v(TAG,"TaskListFragment onCreateView");
         mView = inflater.inflate(R.layout.activity_task_list, container, false);
 
@@ -44,8 +50,11 @@ public class TaskListFragment extends Fragment {
         mProjectAdapter = new ProjectAdapter();
 
         RecyclerView recyclerView = (RecyclerView) mView.findViewById(R.id.project_task_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
+        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(mView.getContext()));
         recyclerView.setAdapter(mProjectAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerView.addItemDecoration(new MzItemDecoration(mView.getContext()));
 
         initData();
 
@@ -54,12 +63,12 @@ public class TaskListFragment extends Fragment {
 
     private void initData()
     {
+        Log.v(TAG,"TaskListFragment initData");
         AVQuery<AVObject> projectQuery = new AVQuery<>("ProjectData");
         projectQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
-                    Log.v(TAG, "task list get project data list success.");
                     for (int i = 0; i < list.size(); i++) {
                         final String[] projectName = new String[]{""};
                         projectName[0] = list.get(i).getString("projectName");
@@ -103,29 +112,40 @@ public class TaskListFragment extends Fragment {
         @Override
         public void onBindViewHolder(ProjectViewHolder holder, int position) {
             holder.tv.setText(mProject.get(position));
-            holder.tv.setOnClickListener(new View.OnClickListener() {
+            final String projectName = mProject.get(position);
+            holder.iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v(TAG, "onClick projectName = " + ((TextView) v).getText());
                     Intent intent = new Intent(mView.getContext(), ProjectInformationActivity.class); //显式Intent
-                    intent.putExtra("projectName", ((TextView) v).getText());
+                    intent.putExtra("projectName", projectName);
                     startActivity(intent);
                 }
             });
-
-            holder.rv.setLayoutManager(new LinearLayoutManager(mView.getContext()));
-            TaskAdapter taskAdapter = new TaskAdapter(mProject.get(position));
+            holder.rv.setLayoutManager(new WrapContentLinearLayoutManager(mView.getContext()));
+            TaskAdapter taskAdapter = new TaskAdapter(projectName);
             holder.rv.setAdapter(taskAdapter);
+            MzItemDecoration itemDecoration = new MzItemDecoration(mView.getContext());
+            itemDecoration.setDividerPadding(new MzItemDecoration.DividerPadding() {
+                @Override
+                public int[] getDividerPadding(int position) {
+                    int[] padding = new int[]{16,16};
+                    return padding;
+                }
+            });
+            holder.rv.addItemDecoration(itemDecoration);
         }
 
         class ProjectViewHolder extends RecyclerView.ViewHolder {
             TextView tv;
+            LinearLayout iv;
             RecyclerView rv;
 
             public ProjectViewHolder(View view) {
                 super(view);
                 tv = (TextView) view.findViewById(R.id.project_task_project_name);
                 rv = (RecyclerView) view.findViewById(R.id.task_rv);
+                iv = (LinearLayout)view.findViewById(R.id.project_details);
+                Log.v(TAG,"ProjectViewHolder ProjectViewHolder");
             }
         }
     }
@@ -140,11 +160,6 @@ public class TaskListFragment extends Fragment {
         TaskAdapter(String projectName) {
             this.projectName = projectName;
             list = mProjectTaskMap.get(projectName);
-            if (list == null) {
-                Log.v(TAG, "list == null");
-            } else {
-                Log.v(TAG, "list size = " + list.size());
-            }
         }
 
         @Override
@@ -168,7 +183,6 @@ public class TaskListFragment extends Fragment {
                 holder.tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.v(TAG, "onClick taskName = " + ((TextView) v).getText());
                         Intent intent = new Intent(mView.getContext(), TaskInformationActivity.class); //显式Intent
                         intent.putExtra("taskName", ((TextView) v).getText());
                         intent.putExtra("projectName", projectName);
@@ -180,7 +194,6 @@ public class TaskListFragment extends Fragment {
 
         class TaskViewHolder extends RecyclerView.ViewHolder {
             TextView tv;
-
             public TaskViewHolder(View view) {
                 super(view);
                 tv = (TextView) view.findViewById(R.id.task_item_tv);
@@ -188,4 +201,10 @@ public class TaskListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mProjectTaskMap.clear();
+        mProject.clear();
+    }
 }

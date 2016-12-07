@@ -16,6 +16,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.meizu.common.util.GradientDrawableFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,6 +58,8 @@ public class MyTaskInformationActivity extends AppCompatActivity {
         taskCreateDataTextView = (TextView) findViewById(R.id.my_task_information_task_create_date);
         taskCloseDataTextView = (TextView) findViewById(R.id.my_task_information_task_close_date);
         taskCloseTaskButton = (Button) findViewById(R.id.my_task_information_close_task);
+
+        taskCloseTaskButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
 
         changeTaskName = (TextView) findViewById(R.id.change_task_name);
         changeTaskDescribe = (TextView) findViewById(R.id.change_task_describe);

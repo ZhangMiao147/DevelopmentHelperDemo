@@ -1,11 +1,9 @@
 package com.zhangmiao.developmenthelperdemo;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,10 @@ import com.avos.avoscloud.FindCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import flyme.support.v7.widget.LinearLayoutManager;
+import flyme.support.v7.widget.MzItemDecoration;
+import flyme.support.v7.widget.RecyclerView;
+
 public class MyTasksFragment extends Fragment {
 
     private static final String TAG = "DevelopmentHelperDemo";
@@ -33,7 +35,7 @@ public class MyTasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.activity_my_tasks,container,false);
         RecyclerView myTaskList = (RecyclerView)mView.findViewById(R.id.my_tasks_rv);
-        myTaskList.setLayoutManager(new LinearLayoutManager(mView.getContext()));
+        myTaskList.setLayoutManager(new WrapContentLinearLayoutManager(mView.getContext()));
         mMyTaskAdapter = new MyTaskAdapter();
 
         AVQuery<AVObject> query = new AVQuery<>("TaskData");
@@ -52,7 +54,22 @@ public class MyTasksFragment extends Fragment {
             }
         });
         myTaskList.setAdapter(mMyTaskAdapter);
+        MzItemDecoration itemDecoration = new MzItemDecoration(mView.getContext());
+        itemDecoration.setDividerPadding(new MzItemDecoration.DividerPadding() {
+            @Override
+            public int[] getDividerPadding(int position) {
+                int[] padding = new int[]{16, 16};
+                return padding;
+            }
+        });
+        myTaskList.addItemDecoration(itemDecoration);
         return mView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMyTaskList.clear();
     }
 
     class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHolder> {

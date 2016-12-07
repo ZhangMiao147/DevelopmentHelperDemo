@@ -14,6 +14,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.meizu.common.util.GradientDrawableFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class ProjectInformationActivity extends AppCompatActivity {
         projectCreateDataTextView = (TextView) findViewById(R.id.project_information_project_create_date);
         projectCloseDataTextView = (TextView) findViewById(R.id.project_information_project_close_date);
         closeProjectButton = (Button)findViewById(R.id.project_information_project_close_button);
+        closeProjectButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
 
         Intent intent = getIntent();
         String projectName = intent.getStringExtra("projectName");

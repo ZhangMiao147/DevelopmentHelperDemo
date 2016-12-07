@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -13,141 +13,145 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mz_list_card_partition_height"
+                android:background="#f2f2f2"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/first_level_indentation"
-                android:layout_marginTop="@dimen/first_level_indentation"
-                android:text="@string/create_project" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_margin="@dimen/first_level_indentation"
-                android:background="#696900" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/second_level_indentation"
-                android:text="@string/project_name" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/first_level_indentation"
+                    android:layout_marginTop="@dimen/first_level_indentation"
+                    android:text="@string/create_project" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/et_project_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/third_level_indentation"
-                android:layout_marginRight="@dimen/first_level_indentation"
-                android:maxLines="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/second_level_indentation"
-                android:layout_marginTop="@dimen/first_level_indentation"
-                android:text="@string/project_describe" />
+                android:layout_height="@dimen/mz_split_action_bar_default_height"
+                android:layout_marginStart="@dimen/mz_list_category_1_divider_padding_left"
+                android:layout_marginEnd="@dimen/mz_list_category_1_divider_padding_left"
+                android:paddingTop="@dimen/mz_list_tag_content_padding_left"
+                android:paddingBottom="@dimen/mz_list_card_partition_content_padding_bottom"
+                android:paddingLeft="@dimen/mz_list_tag_padding"
+                android:background="@drawable/mz_edit_text_background_dialog_blue"
+                android:maxLines="1"
+                android:hint="@string/project_name"
+                android:textColor="@color/mz_text_view_color_black"
+                android:textColorHint="#4C000000"
+                android:textSize="@dimen/mz_list_item_dark_text_size" />
 
             <EditText
                 android:id="@+id/et_project_describe"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/third_level_indentation"
-                android:layout_marginRight="@dimen/first_level_indentation"
-                android:background="@drawable/setbar_bg"
-                android:enabled="true"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:maxLines="6"
-                android:minLines="4"
-                android:scrollbars="vertical" />
+                android:layout_height="@dimen/mz_split_action_bar_default_height"
+                android:layout_marginStart="@dimen/mz_list_category_1_divider_padding_left"
+                android:layout_marginEnd="@dimen/mz_list_category_1_divider_padding_left"
+                android:paddingTop="@dimen/mz_list_tag_content_padding_left"
+                android:paddingBottom="@dimen/mz_list_card_partition_content_padding_bottom"
+                android:paddingLeft="@dimen/mz_list_tag_padding"
+                android:background="@drawable/mz_edit_text_background_dialog_blue"
+                android:scrollbars="vertical"
+                android:textColor="@color/mz_text_view_color_black"
+                android:hint="@string/project_describe"
+                android:textColorHint="#4C000000"
+                android:textSize="@dimen/mz_list_item_dark_text_size" />
 
             <Button
                 android:id="@+id/bt_create_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/second_level_indentation"
-                android:background="@color/buttonColor"
+                android:background="@color/mz_theme_color_blue"
+                android:textColor="@color/mz_selection_button_text_color"
                 android:text="@string/create_project" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mz_list_card_partition_height"
+                android:background="#f2f2f2"
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/first_level_indentation"
-                android:background="#696900" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/first_level_indentation"
-                android:layout_marginTop="@dimen/first_level_indentation"
-                android:text="@string/create_task" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_margin="@dimen/first_level_indentation"
-                android:background="#696900" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/second_level_indentation"
-                android:text="@string/task_name" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/first_level_indentation"
+                    android:layout_marginTop="@dimen/first_level_indentation"
+                    android:background="#f2f2f2"
+                    android:text="@string/create_task" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/et_task_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/third_level_indentation"
-                android:layout_marginRight="@dimen/first_level_indentation"
-                android:maxLines="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/second_level_indentation"
-                android:layout_marginTop="@dimen/first_level_indentation"
-                android:text="@string/task_describe" />
+                android:layout_height="@dimen/mz_split_action_bar_default_height"
+                android:layout_marginStart="@dimen/mz_list_category_1_divider_padding_left"
+                android:layout_marginEnd="@dimen/mz_list_category_1_divider_padding_left"
+                android:paddingTop="@dimen/mz_list_tag_content_padding_left"
+                android:paddingBottom="@dimen/mz_list_card_partition_content_padding_bottom"
+                android:paddingLeft="@dimen/mz_list_tag_padding"
+                android:background="@drawable/mz_edit_text_background_dialog_blue"
+                android:maxLines="1"
+                android:hint="@string/task_name"
+                android:textColor="@color/mz_text_view_color_black"
+                android:textColorHint="#4C000000"
+                android:textSize="@dimen/mz_list_item_dark_text_size" />
 
             <EditText
                 android:id="@+id/et_task_describe"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/third_level_indentation"
-                android:layout_marginRight="@dimen/first_level_indentation"
-                android:background="@drawable/setbar_bg"
-                android:enabled="true"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:maxLines="6"
-                android:minLines="4"
-                android:scrollbars="vertical" />
+                android:layout_height="@dimen/mz_split_action_bar_default_height"
+                android:layout_marginStart="@dimen/mz_list_category_1_divider_padding_left"
+                android:layout_marginEnd="@dimen/mz_list_category_1_divider_padding_left"
+                android:paddingTop="@dimen/mz_list_tag_content_padding_left"
+                android:paddingBottom="@dimen/mz_list_card_partition_content_padding_bottom"
+                android:paddingLeft="@dimen/mz_list_tag_padding"
+                android:background="@drawable/mz_edit_text_background_dialog_blue"
+                android:scrollbars="vertical"
+                android:hint="@string/task_describe"
+                android:textColor="@color/mz_text_view_color_black"
+                android:textColorHint="#4C000000"
+                android:textSize="@dimen/mz_list_item_dark_text_size" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/second_level_indentation"
-                android:text="@string/belong_of_project" />
 
-            <Spinner
-                android:id="@+id/project_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/third_level_indentation"
-                android:layout_marginRight="@dimen/first_level_indentation"></Spinner>
+            <RelativeLayout
+                android:id="@+id/choice_project"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/mz_list_category_1_divider_padding_left"
+                style="@style/Widget.Flyme.MultipleList.ContainerLinearLayout">
+                <TextView
+                    android:id="@+id/choice_project_text"
+                    style="@style/Widget.Flyme.MultipleList.Title"
+                    android:text="@string/belong_of_project"
+                    />
 
+                <TextView
+                    android:id="@+id/choice_project_name"
+                    style="@style/Widget.Flyme.MultipleList.Desc.Normal.AdjoinTitle"
+                    android:text="FirstProject"
+                    android:layout_below="@id/choice_project_text"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/mz_list_image_item_text_size"
+                    android:layout_height="@dimen/mz_list_image_item_text_size"
+                    android:src="@drawable/down"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="24dp"
+                    />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/bt_create_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/second_level_indentation"
-                android:background="@color/buttonColor"
+                android:background="@color/mz_theme_color_blue"
+                android:textColor="@color/mz_selection_button_text_color"
                 android:text="@string/create_task" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/project_task_project_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/project_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/first_level_indentation"
-        android:textSize="20sp"
-        android:text="@string/project_name"/>
+        android:layout_height="@dimen/mz_list_card_partition_height"
+        android:background="#f2f2f2"
+        android:orientation="horizontal">
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#696900"
-        android:layout_margin="@dimen/first_level_indentation"
-        />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mz_list_card_partition_content_padding_left">
 
-    <android.support.v7.widget.RecyclerView
+            <TextView
+                android:id="@+id/project_task_project_name"
+                style="@style/Widget.Flyme.Light.TextView.Little.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:includeFontPadding="false"
+                android:paddingBottom="@dimen/mz_list_card_partition_content_padding_bottom"
+                android:paddingTop="@dimen/mz_list_card_partition_content_padding_top"
+                android:text="@string/project_name"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/mz_list_card_partition_content_padding_right">
+
+                <TextView
+                    android:id="@+id/card_partition_right_text"
+                    style="@style/Widget.Flyme.Light.TextView.Little.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="@dimen/mz_list_card_partition_content_padding_bottom"
+                    android:paddingTop="@dimen/mz_list_card_partition_content_padding_top"
+                    android:textColor="#56ABE4"
+                    android:text="详情"/>
+
+                <ImageView
+                    android:id="@+id/card_partition_right_pic"
+                    android:layout_width="@dimen/mz_list_card_partition_right_pic_height"
+                    android:layout_height="@dimen/mz_list_card_partition_right_pic_weight"
+                    android:layout_marginLeft="@dimen/mz_list_card_partition_right_text_pic_padding"
+                    android:layout_marginTop="@dimen/mz_list_card_partition_right_pic_padding_top"
+                    android:background="@drawable/detail"
+                    android:scaleX="0.98"
+                    android:scaleY="0.9"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <flyme.support.v7.widget.RecyclerView
         android:id="@+id/task_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ></android.support.v7.widget.RecyclerView>
+        android:background="@color/window_background"
+        ></flyme.support.v7.widget.RecyclerView>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#696900"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginBottom="@dimen/first_level_indentation"
-        />
 </LinearLayout>

@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--style="@style/Widget.Flyme.SingleList.ContainerRelativeLayout"-->
+    <!-->-->
+    <!--<TextView-->
+        <!--android:id="@+id/task_item_tv"-->
+        <!--style="@style/Widget.Flyme.SingleList.Title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="item"-->
+        <!--android:textColor="@color/mz_list_text_color"-->
+        <!--android:layout_marginStart="@dimen/first_level_indentation"-->
+        <!--android:layout_marginTop="@dimen/first_level_indentation"-->
+        <!--/>-->
+<!--</LinearLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Flyme.SingleList.ContainerRelativeLayout"
+    android:layout_height="@dimen/mz_list_item_height_small"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginTop="@dimen/first_level_indentation"
+    >
+<!--
+    <TextView
+        android:id="@+id/task_item_tv"
+        style="@style/Widget.Flyme.SingleList.Title"/>
+-->
     <TextView
         android:id="@+id/task_item_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        android:layout_marginTop="@dimen/first_level_indentation"
+        android:layout_height="@dimen/mz_list_item_height_small"
+        android:gravity="center_vertical"
         android:text="item"/>
 
-</LinearLayout>
+</RelativeLayout>

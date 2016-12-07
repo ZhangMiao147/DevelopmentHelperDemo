@@ -167,7 +167,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/buttonColor"
+        android:background="@color/mz_theme_color_blue"
+        android:textColor="@color/mz_selection_button_text_color"
         android:text="@string/close_task" />
 
 </LinearLayout>

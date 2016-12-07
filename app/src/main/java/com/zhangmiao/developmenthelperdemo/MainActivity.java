@@ -1,171 +1,224 @@
 package com.zhangmiao.developmenthelperdemo;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+import com.meizu.common.util.GradientDrawableFactory;
+import com.meizu.common.util.TabScroller;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import java.security.PrivilegedAction;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.Inflater;
 
-    private static final String TAG="DevelopmentHelperDemo";
+import flyme.support.v7.app.AlertDialog;
 
-    private Button taskListButton;
-    private Button createTasksButton;
-    private Button taskStatisticsButton;
-    private Button myTasksButton;
-    private Button personalCenterButton;
+public class MainActivity extends AppCompatActivity {
 
-    private TaskListFragment taskListFragment;
-    private CreateTasksFragment createTasksFragment;
-    private MyTasksFragment myTasksFragment;
-    private TaskStatisticsFragment taskStatisticsFragment;
-    private PersonalCenterFragment personalCenterFragment;
+    private static final String TAG = "DevelopmentHelperDemo";
 
-    private FragmentManager fragmentManager;
-    private Toolbar toolbar;
+    private FloatingActionButton createButton;
+    private MyPagerAdapter pagerAdapter;
 
+    private AVUser mCurrentUser;
+
+    private EditText userName;
+    private EditText password;
+
+    private LinearLayout personCenterLayout;
+    private LinearLayout signInLayout;
+    private CoordinatorLayout mainContentLayout;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         AVOSCloud.initialize(this, "EcFJGH8b65CdkW9EMnB5RyjA-gzGzoHsz", "GxioJBEEkj5DHvMWzkMhcaqS");
-        initView();
-        initEvent();
-        fragmentManager = getFragmentManager();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mCurrentUser = AVUser.getCurrentUser();
+        signInLayout = (LinearLayout) findViewById(R.id.sign_in_layout);
+        mainContentLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+        personCenterLayout = (LinearLayout) findViewById(R.id.personal_center_layout);
+        if (mCurrentUser == null) {
+            mainContentLayout.setVisibility(View.GONE);
+            initSignInLayout();
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            signInLayout.setVisibility(View.GONE);
+            initMainContentLayout();
+        }
+        initPersonalCenterLayout();
     }
 
-    private void initView()
-    {
-        taskListButton = (Button)findViewById(R.id.task_list_button);
-        createTasksButton = (Button)findViewById(R.id.create_tasks_button);
-        taskStatisticsButton = (Button)findViewById(R.id.task_statistics_button);
-        myTasksButton = (Button)findViewById(R.id.my_tasks_button);
-        personalCenterButton = (Button)findViewById(R.id.personal_center_button);
-    }
-    public void initEvent(){
-        taskListButton.setOnClickListener(this);
-        createTasksButton.setOnClickListener(this);
-        taskStatisticsButton.setOnClickListener(this);
-        myTasksButton.setOnClickListener(this);
-        personalCenterButton.setOnClickListener(this);
+    public void initMainContentLayout() {
+        Fragment taskListFragment = new TaskListFragment();
+        Fragment taskStatisticsFragment = new TaskStatisticsFragment();
+        Fragment myTaskFragment = new MyTasksFragment();
+
+        pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment(taskListFragment, "任务列表");
+        pagerAdapter.addFragment(taskStatisticsFragment, "任务统计");
+        pagerAdapter.addFragment(myTaskFragment, "我的任务");
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        if (viewPager != null) {
+            viewPager.setAdapter(pagerAdapter);
+        }
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        if (viewPager != null && tabs != null) {
+            tabs.setupWithViewPager(viewPager);
+        }
+
+        createButton = (FloatingActionButton) findViewById(R.id.create_button);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateTasksActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void restartButton(){
-        taskListButton.setBackgroundColor(0xffffff);
-        createTasksButton.setBackgroundColor(0xffffff);
-        taskStatisticsButton.setBackgroundColor(0xffffff);
-        myTasksButton.setBackgroundColor(0xffffff);
-        personalCenterButton.setBackgroundColor(0xffffff);
-    }
-
-    @Override
-    public void onClick(View v) {
-        restartButton();
-        switch (v.getId()){
-            case R.id.task_list_button:
-                setTabSelection(0);
-                toolbar.setTitle(R.string.task_list);
-                break;
-            case R.id.create_tasks_button:
-                setTabSelection(1);
-                toolbar.setTitle(R.string.create_task);
-                break;
-            case R.id.task_statistics_button:
-                setTabSelection(2);
-                toolbar.setTitle(R.string.task_statistics);
-                break;
-            case R.id.my_tasks_button:
-                setTabSelection(3);
-                toolbar.setTitle(R.string.my_tasks);
-                break;
-            case R.id.personal_center_button:
-                setTabSelection(4);
-                toolbar.setTitle(R.string.personal_center);
-                break;
-            default:
-                break;
+    public void initPersonalCenterLayout() {
+        if (mCurrentUser != null) {
+            TextView personalCenterUserName = (TextView) findViewById(R.id.personal_center_username);
+            personalCenterUserName.setText(mCurrentUser.getUsername());
         }
     }
 
-    private void setTabSelection(int index){
-        restartButton();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        switch (index){
-            case 0:
-                taskListButton.setBackgroundColor(0xAA70f3ff);
-                if(taskListFragment == null){
-                    taskListFragment = new TaskListFragment();
-                    transaction.add(R.id.content,taskListFragment);
-                }else {
-                    transaction.show(taskListFragment);
-                }
-                break;
-            case 1:
-                createTasksButton.setBackgroundColor(0xAA70f3ff);
-                if(createTasksFragment == null){
-                    createTasksFragment = new CreateTasksFragment();
-                    transaction.add(R.id.content,createTasksFragment);
-                }else {
-                    transaction.show(createTasksFragment);
-                }
-                break;
-            case 2:
-                taskStatisticsButton.setBackgroundColor(0xAA70f3ff);
-                if(taskStatisticsFragment == null){
-                    taskStatisticsFragment = new TaskStatisticsFragment();
-                    transaction.add(R.id.content,taskStatisticsFragment);
-                }else {
-                    transaction.show(taskStatisticsFragment);
-                }
-                break;
-            case 3:
-                myTasksButton.setBackgroundColor(0xAA70f3ff);
-                if(myTasksFragment == null){
-                    myTasksFragment = new MyTasksFragment();
-                    transaction.add(R.id.content,myTasksFragment);
-                }else {
-                    transaction.show(myTasksFragment);
-                }
-                break;
-            case 4:
-                personalCenterButton.setBackgroundColor(0xAA70f3ff);
-                if(personalCenterFragment == null){
-                    personalCenterFragment = new PersonalCenterFragment();
-                    transaction.add(R.id.content,personalCenterFragment);
-                }else {
-                    transaction.show(personalCenterFragment);
-                }
-                break;
-            default:
-                break;
-        }
-        transaction.commit();
+    public void initSignInLayout() {
+        Button signIn = (Button) findViewById(R.id.sign_in_button);
+        Button register = (Button) findViewById(R.id.sign_in_register);
+        userName = (EditText) findViewById(R.id.sign_in_user_name);
+        password = (EditText) findViewById(R.id.sign_in_password);
+        userName.setBackground(getDrawable(R.drawable.mz_edit_text_background_dialog_blue));
+        userName.setTextColor(Color.BLACK);
+        password.setBackground(getDrawable(R.drawable.mz_edit_text_background_dialog_blue));
+        password.setTextColor(Color.BLACK);
+        Button forgetPassword = (Button) findViewById(R.id.sign_in_forget_password);
+        signIn.setOnClickListener(signInListener);
+        register.setOnClickListener(registerListener);
+        forgetPassword.setOnClickListener(forgetPasswordListener);
+
+        signIn.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
     }
 
-    private void hideFragments(FragmentTransaction transaction){
-        if(taskListFragment != null){
-            transaction.hide(taskListFragment);
+    View.OnClickListener signInListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String userNameText = userName.getText().toString();
+            Log.v(TAG, "username = " + userNameText);
+            final String passwordText = password.getText().toString();
+            Log.v(TAG, "password = " + passwordText);
+            if (!userNameText.isEmpty() && !passwordText.isEmpty()) {
+                AVUser.logInInBackground(userNameText, passwordText, new LogInCallback<AVUser>() {
+                    @Override
+                    public void done(AVUser avUser, AVException e) {
+                        if (e == null) {
+                            Log.v(TAG, "sign in success");
+                            final CustomAlertDialog customAlertDialog = new CustomAlertDialog(MainActivity.this);
+                            customAlertDialog.setSuccessAlertDialog();
+                            customAlertDialog.setText("sign in success");
+                            Button sure = customAlertDialog.getButton();
+                            sure.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    customAlertDialog.getAlertDialog().dismiss();
+                                }
+                            });
+                            signInLayout.setVisibility(View.GONE);
+                            mainContentLayout.setVisibility(View.VISIBLE);
+                            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                            initPersonalCenterLayout();
+                            initMainContentLayout();
+                        } else {
+                            Log.v(TAG, "sign in fail,error = " + e.getMessage());
+                            CustomAlertDialog customAlertDialog = new CustomAlertDialog(MainActivity.this);
+                            customAlertDialog.setFailAlertDialog();
+                            customAlertDialog.setText("sign in fail");
+                            customAlertDialog.setReason(e.getMessage());
+                        }
+                    }
+                });
+            }
         }
-        if(createTasksFragment != null){
-            transaction.hide(createTasksFragment);
+
+    };
+
+    View.OnClickListener registerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, RegisterActivity.class);
+            startActivity(intent);
         }
-        if(taskStatisticsFragment != null){
-            transaction.hide(taskStatisticsFragment);
+    };
+
+    View.OnClickListener forgetPasswordListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, ForgetPasswordActivity.class);
+            startActivity(intent);
         }
-        if(myTasksFragment != null){
-            transaction.hide(myTasksFragment);
+    };
+
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+
+        public List<Fragment> fragments = new ArrayList<>();
+        private List<String> titles = new ArrayList<>();
+
+        public void addFragment(Fragment fragment, String title) {
+            fragments.add(fragment);
+            titles.add(title);
         }
-        if(personalCenterFragment != null){
-            transaction.hide(personalCenterFragment);
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
         }
     }
 }

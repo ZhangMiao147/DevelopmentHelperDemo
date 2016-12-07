@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
+import com.meizu.common.widget.TabLayout;
 
 public class RegisterActivity extends AppCompatActivity {
 

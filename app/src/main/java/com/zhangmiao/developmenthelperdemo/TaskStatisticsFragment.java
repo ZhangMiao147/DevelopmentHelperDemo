@@ -1,10 +1,8 @@
 package com.zhangmiao.developmenthelperdemo;
 
-import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +25,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import flyme.support.v7.widget.LinearLayoutManager;
+import flyme.support.v7.widget.RecyclerView;
 
 public class TaskStatisticsFragment extends Fragment {
 
@@ -130,7 +131,7 @@ public class TaskStatisticsFragment extends Fragment {
                     nExcelList.add(new NExcel(taskSize, memberName));
                 }
                 holder.chart.setBarStanded(7);
-                holder.chart.setNormalColor(Color.parseColor("#089900"));
+                holder.chart.setNormalColor(Color.parseColor("#198DED"));
                 holder.chart.cmdFill(nExcelList);
                 holder.chart.setBarWidth(20);
                 holder.chart.setInterval(70);

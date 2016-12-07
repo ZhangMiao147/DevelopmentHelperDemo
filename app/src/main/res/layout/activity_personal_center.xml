@@ -1,123 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
+    android:background="#ffffffff"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/personal_center_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/personal_center_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="zhang"
-        android:textSize="24sp"
-        android:layout_marginTop="@dimen/third_level_indentation"
-        android:layout_marginBottom="@dimen/third_level_indentation"
-        android:layout_marginLeft="@dimen/third_level_indentation"
-        />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#696999"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="通用设置"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        android:layout_marginLeft="@dimen/second_level_indentation"
-        />
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#696999"
-        android:layout_marginTop="@dimen/first_level_indentation"
-        />
-    </LinearLayout>
-
-    <LinearLayout android:id="@+id/sign_in_layout"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            >
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/user_name"/>
-            <EditText
-                android:id="@+id/sign_in_user_name"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/first_level_indentation"
-            >
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/password"/>
-            <EditText
-                android:id="@+id/sign_in_password"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <Button
-            style="?android:attr/buttonBarStyle"
-            android:id="@+id/sign_in_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/second_level_indentation"
-            android:layout_marginRight="@dimen/second_level_indentation"
-            android:layout_marginTop="@dimen/first_level_indentation"
-            android:text="@string/sign_in"
+        <ImageView
+            android:layout_width="@dimen/mz_preference_icon_width"
+            android:layout_height="@dimen/mz_preference_icon_width"
+            android:src="@drawable/person"
             android:layout_gravity="center"
-            android:background="@color/buttonColor"
+            android:layout_marginTop="44dp"
             />
-        <RelativeLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/personal_center_username"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/second_level_indentation"
-            android:paddingRight="@dimen/second_level_indentation"
-            android:paddingTop="@dimen/first_level_indentation"
+            android:layout_marginTop="@dimen/first_level_indentation"
+            android:text="zhang"
+            android:layout_gravity="center_horizontal"
+            android:textSize="24sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             >
-            <Button
-                style="?android:attr/buttonBarStyle"
-                android:id="@+id/sign_in_register"
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/register" />
+                android:src="@drawable/mz_titlebar_ic_setting_dark"
+                android:layout_marginStart="@dimen/mz_list_item_content_padding_right_2"
+                />
 
-            <Button
-                style="?android:attr/buttonBarStyle"
-                android:id="@+id/sign_in_forget_password"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/forget_password" />
-
-        </RelativeLayout>
-
+                android:layout_marginLeft="@dimen/second_level_indentation"
+                android:text="设置" />
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
