@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import flyme.support.v7.widget.DefaultItemAnimator;
-import flyme.support.v7.widget.LinearLayoutManager;
 import flyme.support.v7.widget.MzItemDecoration;
 import flyme.support.v7.widget.RecyclerView;
 
@@ -38,7 +36,6 @@ public class TaskListFragment extends Fragment {
     private ProjectAdapter mProjectAdapter;
     private TaskAdapter mTaskAdapter;
     private final List<String> mProject = new ArrayList<>();
-    private AVUser mCurrentUser;
 
     @Nullable
     @Override
@@ -63,7 +60,7 @@ public class TaskListFragment extends Fragment {
 
     private void initData()
     {
-        Log.v(TAG,"TaskListFragment initData");
+        Log.v(TAG, "TaskListFragment initData");
         AVQuery<AVObject> projectQuery = new AVQuery<>("ProjectData");
         projectQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
@@ -128,8 +125,7 @@ public class TaskListFragment extends Fragment {
             itemDecoration.setDividerPadding(new MzItemDecoration.DividerPadding() {
                 @Override
                 public int[] getDividerPadding(int position) {
-                    int[] padding = new int[]{16,16};
-                    return padding;
+                    return new int[]{16,16};
                 }
             });
             holder.rv.addItemDecoration(itemDecoration);

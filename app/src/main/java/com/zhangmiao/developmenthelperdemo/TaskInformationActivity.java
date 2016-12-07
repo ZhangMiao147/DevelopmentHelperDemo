@@ -2,7 +2,6 @@ package com.zhangmiao.developmenthelperdemo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,18 +18,18 @@ import com.meizu.common.util.GradientDrawableFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TaskInformationActivity extends AppCompatActivity {
     private static final String TAG = "DevelopmentHelperDemo";
-    private TextView taskIdTextView;
-    private TextView taskDescribeTextView;
-    private TextView taskCreatorTextView;
-    private TextView taskFinisherTextView;
-    private TextView taskProjectTextView;
-    private TextView taskCreateDataTextView;
-    private TextView taskCloseDataTextView;
+    private TextView mTaskIdTextView;
+    private TextView mTaskDescribeTextView;
+    private TextView mTaskCreatorTextView;
+    private TextView mTaskFinisherTextView;
+    private TextView mTaskCreateDataTextView;
+    private TextView mTaskCloseDataTextView;
 
-    private Button receiveTaskButton;
+    private Button mReceiveTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +37,15 @@ public class TaskInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_information);
 
         TextView taskNameTextView = (TextView) findViewById(R.id.task_information_task_name);
-        taskIdTextView = (TextView) findViewById(R.id.task_information_task_id);
-        taskCreatorTextView = (TextView) findViewById(R.id.task_information_task_creator);
-        taskFinisherTextView = (TextView) findViewById(R.id.task_information_task_finisher);
-        taskProjectTextView = (TextView) findViewById(R.id.task_information_task_project);
-        taskDescribeTextView = (TextView) findViewById(R.id.task_information_task_describe);
-        taskCreateDataTextView = (TextView) findViewById(R.id.task_information_task_create_date);
-        taskCloseDataTextView = (TextView) findViewById(R.id.task_information_task_close_date);
-        receiveTaskButton = (Button) findViewById(R.id.task_information_receive_task);
-        receiveTaskButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        mTaskIdTextView = (TextView) findViewById(R.id.task_information_task_id);
+        mTaskCreatorTextView = (TextView) findViewById(R.id.task_information_task_creator);
+        mTaskFinisherTextView = (TextView) findViewById(R.id.task_information_task_finisher);
+        TextView taskProjectTextView = (TextView) findViewById(R.id.task_information_task_project);
+        mTaskDescribeTextView = (TextView) findViewById(R.id.task_information_task_describe);
+        mTaskCreateDataTextView = (TextView) findViewById(R.id.task_information_task_create_date);
+        mTaskCloseDataTextView = (TextView) findViewById(R.id.task_information_task_close_date);
+        mReceiveTaskButton = (Button) findViewById(R.id.task_information_receive_task);
+        mReceiveTaskButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
 
         Intent intent = getIntent();
         String taskName = intent.getStringExtra("taskName");
@@ -54,7 +53,7 @@ public class TaskInformationActivity extends AppCompatActivity {
         if (taskNameTextView != null) {
             taskNameTextView.setText(taskName);
         }
-        if(!projectName.isEmpty()){
+        if(!projectName.isEmpty() && taskProjectTextView != null){
             taskProjectTextView.setText(projectName);
         }
         if (!taskName.isEmpty()) {
@@ -78,7 +77,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                             if (e == null) {
                                 AVUser creator = avObject.getAVUser("creator");
                                 String creatorName = creator.getUsername();
-                                taskCreatorTextView.setText(creatorName);
+                                mTaskCreatorTextView.setText(creatorName);
                             } else {
                                 Log.v(TAG, "TaskInformationActivity get creator fail.error = " + e.getMessage());
                             }
@@ -88,9 +87,9 @@ public class TaskInformationActivity extends AppCompatActivity {
                     int state = avObject.getInt("state");
                     if(state == 0){
                         finisherName[0] = "任务未领取";
-                        taskFinisherTextView.setText(finisherName[0]);
-                        receiveTaskButton.setVisibility(Button.VISIBLE);
-                        receiveTaskButton.setOnClickListener(new View.OnClickListener() {
+                        mTaskFinisherTextView.setText(finisherName[0]);
+                        mReceiveTaskButton.setVisibility(Button.VISIBLE);
+                        mReceiveTaskButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 final AVUser currentUser = AVUser.getCurrentUser();
@@ -102,9 +101,9 @@ public class TaskInformationActivity extends AppCompatActivity {
                                     public void done(AVException e) {
                                         if (e == null) {
                                             Log.v(TAG, "addFinisher success");
-                                            receiveTaskButton.setVisibility(Button.GONE);
+                                            mReceiveTaskButton.setVisibility(Button.GONE);
                                             finisherName[0] = currentUser.getUsername();
-                                            taskFinisherTextView.setText(finisherName[0]);
+                                            mTaskFinisherTextView.setText(finisherName[0]);
                                         } else {
                                             Log.v(TAG, "addFinisher fail.error = " + e.getMessage());
                                         }
@@ -120,7 +119,7 @@ public class TaskInformationActivity extends AppCompatActivity {
                                     AVUser finisher = avObject.getAVUser("finisher");
                                     if (finisher != null) {
                                         finisherName[0] = finisher.getUsername();
-                                        taskFinisherTextView.setText(finisherName[0]);
+                                        mTaskFinisherTextView.setText(finisherName[0]);
                                     }
                                 } else {
                                     Log.v(TAG, "TaskInformationActivity get creator fail.error = " + e.getMessage());
@@ -129,14 +128,14 @@ public class TaskInformationActivity extends AppCompatActivity {
                         });
                     }
                     Date createDate = avObject.getCreatedAt();
-                    final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                     String createDateText = format.format(createDate);
                     final String[] closeDateText = new String[]{"未关闭"};
-                    taskIdTextView.setText(taskId);
-                    taskDescribeTextView.setText(taskDescribe);
-                    taskFinisherTextView.setText(finisherName[0]);
-                    taskCloseDataTextView.setText(closeDateText[0]);
-                    taskCreateDataTextView.setText(createDateText);
+                    mTaskIdTextView.setText(taskId);
+                    mTaskDescribeTextView.setText(taskDescribe);
+                    mTaskFinisherTextView.setText(finisherName[0]);
+                    mTaskCloseDataTextView.setText(closeDateText[0]);
+                    mTaskCreateDataTextView.setText(createDateText);
                 } else {
                     Log.v(TAG, "TaskInformationActivity getAVObject fail.error = " + e.getMessage());
                 }

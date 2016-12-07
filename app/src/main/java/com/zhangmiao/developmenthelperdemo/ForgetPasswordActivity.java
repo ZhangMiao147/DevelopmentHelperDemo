@@ -14,19 +14,19 @@ import com.avos.avoscloud.RequestEmailVerifyCallback;
 public class ForgetPasswordActivity extends AppCompatActivity {
 
     private static final String TAG="DevelopmentHelperDemo";
-    private EditText emailbox;
+    private EditText mEmailbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-        emailbox = (EditText)findViewById(R.id.forget_password_emailbox);
+        mEmailbox = (EditText)findViewById(R.id.forget_password_emailbox);
         Button sure = (Button)findViewById(R.id.forget_password_sure);
         if(sure != null) {
             sure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String emailboxText = emailbox.getText().toString();
+                    String emailboxText = mEmailbox.getText().toString();
 
                     if (!emailboxText.isEmpty()) {
                         AVUser.requestEmailVerfiyInBackground(emailboxText, new RequestEmailVerifyCallback() {

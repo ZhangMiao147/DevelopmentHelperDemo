@@ -1,9 +1,7 @@
 package com.zhangmiao.developmenthelperdemo;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -13,16 +11,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -30,30 +24,20 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.meizu.common.util.GradientDrawableFactory;
-import com.meizu.common.util.TabScroller;
 
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
-
-import flyme.support.v7.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "DevelopmentHelperDemo";
-
-    private FloatingActionButton createButton;
-    private MyPagerAdapter pagerAdapter;
-
     private AVUser mCurrentUser;
 
-    private EditText userName;
-    private EditText password;
+    private EditText mUserName;
+    private EditText mPassword;
 
-    private LinearLayout personCenterLayout;
-    private LinearLayout signInLayout;
-    private CoordinatorLayout mainContentLayout;
+    private LinearLayout mSignInLayout;
+    private CoordinatorLayout mMainContentLayout;
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -66,15 +50,14 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mCurrentUser = AVUser.getCurrentUser();
-        signInLayout = (LinearLayout) findViewById(R.id.sign_in_layout);
-        mainContentLayout = (CoordinatorLayout) findViewById(R.id.main_content);
-        personCenterLayout = (LinearLayout) findViewById(R.id.personal_center_layout);
-        if (mCurrentUser == null) {
-            mainContentLayout.setVisibility(View.GONE);
+        mSignInLayout = (LinearLayout) findViewById(R.id.sign_in_layout);
+        mMainContentLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+        if (mCurrentUser == null && mMainContentLayout != null) {
+            mMainContentLayout.setVisibility(View.GONE);
             initSignInLayout();
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         } else {
-            signInLayout.setVisibility(View.GONE);
+            mSignInLayout.setVisibility(View.GONE);
             initMainContentLayout();
         }
         initPersonalCenterLayout();
@@ -85,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment taskStatisticsFragment = new TaskStatisticsFragment();
         Fragment myTaskFragment = new MyTasksFragment();
 
-        pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(taskListFragment, "任务列表");
         pagerAdapter.addFragment(taskStatisticsFragment, "任务统计");
         pagerAdapter.addFragment(myTaskFragment, "我的任务");
@@ -98,46 +81,55 @@ public class MainActivity extends AppCompatActivity {
             tabs.setupWithViewPager(viewPager);
         }
 
-        createButton = (FloatingActionButton) findViewById(R.id.create_button);
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateTasksActivity.class);
-                startActivity(intent);
-            }
-        });
+        FloatingActionButton createButton = (FloatingActionButton) findViewById(R.id.create_button);
+        if(createButton != null) {
+            createButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CreateTasksActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public void initPersonalCenterLayout() {
         if (mCurrentUser != null) {
             TextView personalCenterUserName = (TextView) findViewById(R.id.personal_center_username);
-            personalCenterUserName.setText(mCurrentUser.getUsername());
+            if(personalCenterUserName != null) {
+                personalCenterUserName.setText(mCurrentUser.getUsername());
+            }
         }
     }
 
     public void initSignInLayout() {
         Button signIn = (Button) findViewById(R.id.sign_in_button);
         Button register = (Button) findViewById(R.id.sign_in_register);
-        userName = (EditText) findViewById(R.id.sign_in_user_name);
-        password = (EditText) findViewById(R.id.sign_in_password);
-        userName.setBackground(getDrawable(R.drawable.mz_edit_text_background_dialog_blue));
-        userName.setTextColor(Color.BLACK);
-        password.setBackground(getDrawable(R.drawable.mz_edit_text_background_dialog_blue));
-        password.setTextColor(Color.BLACK);
+        mUserName = (EditText) findViewById(R.id.sign_in_user_name);
+        mPassword = (EditText) findViewById(R.id.sign_in_password);
+        mUserName.setBackground(getDrawable(R.drawable.mz_edit_text_background_dialog_blue));
+        mUserName.setTextColor(Color.BLACK);
+        mPassword.setBackground(getDrawable(R.drawable.mz_edit_text_background_dialog_blue));
+        mPassword.setTextColor(Color.BLACK);
         Button forgetPassword = (Button) findViewById(R.id.sign_in_forget_password);
-        signIn.setOnClickListener(signInListener);
-        register.setOnClickListener(registerListener);
-        forgetPassword.setOnClickListener(forgetPasswordListener);
-
-        signIn.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        if(signIn != null) {
+            signIn.setOnClickListener(signInListener);
+            signIn.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        }
+        if(register != null) {
+            register.setOnClickListener(registerListener);
+        }
+        if(forgetPassword != null) {
+            forgetPassword.setOnClickListener(forgetPasswordListener);
+        }
     }
 
     View.OnClickListener signInListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String userNameText = userName.getText().toString();
+            String userNameText = mUserName.getText().toString();
             Log.v(TAG, "username = " + userNameText);
-            final String passwordText = password.getText().toString();
+            final String passwordText = mPassword.getText().toString();
             Log.v(TAG, "password = " + passwordText);
             if (!userNameText.isEmpty() && !passwordText.isEmpty()) {
                 AVUser.logInInBackground(userNameText, passwordText, new LogInCallback<AVUser>() {
@@ -155,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
                                     customAlertDialog.getAlertDialog().dismiss();
                                 }
                             });
-                            signInLayout.setVisibility(View.GONE);
-                            mainContentLayout.setVisibility(View.VISIBLE);
+                            mSignInLayout.setVisibility(View.GONE);
+                            mMainContentLayout.setVisibility(View.VISIBLE);
                             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                             initPersonalCenterLayout();
                             initMainContentLayout();

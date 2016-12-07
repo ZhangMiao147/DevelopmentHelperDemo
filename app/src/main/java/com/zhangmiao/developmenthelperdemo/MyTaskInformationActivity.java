@@ -20,59 +20,60 @@ import com.meizu.common.util.GradientDrawableFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MyTaskInformationActivity extends AppCompatActivity {
 
     private static final String TAG = "DevelopmentHelperDemo";
 
-    String taskName;
+    String mTaskName;
 
     AVObject mObject;
 
-    private String taskId;
+    private String mTaskId;
 
-    private TextView taskNameTextView;
-    private TextView taskIdTextView;
-    private TextView taskDescribeTextView;
-    private TextView taskCreatorTextView;
-    private TextView taskFinisherTextView;
-    private TextView taskProjectTextView;
-    private TextView taskCreateDataTextView;
-    private TextView taskCloseDataTextView;
-    private Button taskCloseTaskButton;
+    private TextView mTaskNameTextView;
+    private TextView mTaskIdTextView;
+    private TextView mTaskDescribeTextView;
+    private TextView mTaskCreatorTextView;
+    private TextView mTaskFinisherTextView;
+    private TextView mTaskProjectTextView;
+    private TextView mTaskCreateDataTextView;
+    private TextView mTaskCloseDataTextView;
+    private Button mTaskCloseTaskButton;
 
-    private TextView changeTaskName;
-    private TextView changeTaskDescribe;
+    private TextView mChangeTaskName;
+    private TextView mChangeTaskDescribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_task_information);
 
-        taskNameTextView = (TextView) findViewById(R.id.my_task_information_task_name);
-        taskIdTextView = (TextView) findViewById(R.id.my_task_information_task_id);
-        taskDescribeTextView = (TextView) findViewById(R.id.my_task_information_task_describe);
-        taskCreatorTextView = (TextView) findViewById(R.id.my_task_information_task_creator);
-        taskFinisherTextView = (TextView) findViewById(R.id.my_task_information_task_finisher);
-        taskProjectTextView = (TextView) findViewById(R.id.my_task_information_task_project);
-        taskCreateDataTextView = (TextView) findViewById(R.id.my_task_information_task_create_date);
-        taskCloseDataTextView = (TextView) findViewById(R.id.my_task_information_task_close_date);
-        taskCloseTaskButton = (Button) findViewById(R.id.my_task_information_close_task);
+        mTaskNameTextView = (TextView) findViewById(R.id.my_task_information_task_name);
+        mTaskIdTextView = (TextView) findViewById(R.id.my_task_information_task_id);
+        mTaskDescribeTextView = (TextView) findViewById(R.id.my_task_information_task_describe);
+        mTaskCreatorTextView = (TextView) findViewById(R.id.my_task_information_task_creator);
+        mTaskFinisherTextView = (TextView) findViewById(R.id.my_task_information_task_finisher);
+        mTaskProjectTextView = (TextView) findViewById(R.id.my_task_information_task_project);
+        mTaskCreateDataTextView = (TextView) findViewById(R.id.my_task_information_task_create_date);
+        mTaskCloseDataTextView = (TextView) findViewById(R.id.my_task_information_task_close_date);
+        mTaskCloseTaskButton = (Button) findViewById(R.id.my_task_information_close_task);
 
-        taskCloseTaskButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        mTaskCloseTaskButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
 
-        changeTaskName = (TextView) findViewById(R.id.change_task_name);
-        changeTaskDescribe = (TextView) findViewById(R.id.change_task_describe);
+        mChangeTaskName = (TextView) findViewById(R.id.change_task_name);
+        mChangeTaskDescribe = (TextView) findViewById(R.id.change_task_describe);
 
         Intent intent = getIntent();
-        taskName = intent.getStringExtra("taskName");
-        taskNameTextView.setText(taskName);
+        mTaskName = intent.getStringExtra("taskName");
+        mTaskNameTextView.setText(mTaskName);
         initData();
         changeClickListener();
     }
 
     private void changeClickListener() {
-        changeTaskName.setOnClickListener(new TextView.OnClickListener() {
+        mChangeTaskName.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(MyTaskInformationActivity.this);
@@ -92,7 +93,7 @@ public class MyTaskInformationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         final String newTaskName = editText.getText().toString().trim();
-                        String objectId = taskIdTextView.getText().toString().trim();
+                        String objectId = mTaskIdTextView.getText().toString().trim();
                         AVObject avObject = AVObject.createWithoutData("TaskData", objectId);
                         avObject.fetchInBackground(new GetCallback<AVObject>() {
                             @Override
@@ -105,7 +106,7 @@ public class MyTaskInformationActivity extends AppCompatActivity {
                                             CustomAlertDialog customAlertDialog = new CustomAlertDialog(MyTaskInformationActivity.this);
                                             customAlertDialog.setSuccessAlertDialog();
                                             dialog.dismiss();
-                                            taskNameTextView.setText(newTaskName);
+                                            mTaskNameTextView.setText(newTaskName);
                                         }
                                     }
                                 });
@@ -118,7 +119,7 @@ public class MyTaskInformationActivity extends AppCompatActivity {
             }
         });
 
-        changeTaskDescribe.setOnClickListener(new TextView.OnClickListener() {
+        mChangeTaskDescribe.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(MyTaskInformationActivity.this);
@@ -138,7 +139,7 @@ public class MyTaskInformationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         final String newTaskDescribe = editText.getText().toString().trim();
-                        String objectId = taskIdTextView.getText().toString().trim();
+                        String objectId = mTaskIdTextView.getText().toString().trim();
                         AVObject avObject = AVObject.createWithoutData("TaskData", objectId);
                         avObject.fetchInBackground(new GetCallback<AVObject>() {
                             @Override
@@ -151,7 +152,7 @@ public class MyTaskInformationActivity extends AppCompatActivity {
                                             CustomAlertDialog customAlertDialog = new CustomAlertDialog(MyTaskInformationActivity.this);
                                             customAlertDialog.setSuccessAlertDialog();
                                             dialog.dismiss();
-                                            taskDescribeTextView.setText(newTaskDescribe);
+                                            mTaskDescribeTextView.setText(newTaskDescribe);
                                         }
                                     }
                                 });
@@ -168,23 +169,23 @@ public class MyTaskInformationActivity extends AppCompatActivity {
 
     private void initData() {
         AVQuery<AVObject> query = new AVQuery<>("TaskData");
-        query.whereEqualTo("taskName", taskName);
+        query.whereEqualTo("taskName", mTaskName);
         query.getFirstInBackground(new GetCallback<AVObject>() {
             @Override
             public void done(final AVObject avObject, AVException e) {
                 mObject = avObject;
                 if (e == null) {
-                    taskId = avObject.getObjectId();
-                    taskIdTextView.setText(taskId);
+                    mTaskId = avObject.getObjectId();
+                    mTaskIdTextView.setText(mTaskId);
                     String taskDescribe = avObject.getString("taskDescribe");
-                    taskDescribeTextView.setText(taskDescribe);
+                    mTaskDescribeTextView.setText(taskDescribe);
                     avObject.fetchInBackground("creator", new GetCallback<AVObject>() {
                         @Override
                         public void done(AVObject avObject, AVException e) {
                             if (e == null) {
                                 AVUser creator = avObject.getAVUser("creator");
                                 String creatorName = creator.getUsername();
-                                taskCreatorTextView.setText(creatorName);
+                                mTaskCreatorTextView.setText(creatorName);
                             } else {
                                 Log.v(TAG, "TaskInformationActivity get creator fail.error = " + e.getMessage());
                             }
@@ -196,35 +197,35 @@ public class MyTaskInformationActivity extends AppCompatActivity {
                             if (e == null) {
                                 AVObject project = avObject.getAVObject("project");
                                 String projectName = project.getString("projectName");
-                                taskProjectTextView.setText(projectName);
+                                mTaskProjectTextView.setText(projectName);
                             } else {
                                 Log.v(TAG, "ProjectInformationActivity get project fail.error = " + e.getMessage());
                             }
                         }
                     });
                     AVUser currentUser = AVUser.getCurrentUser();
-                    taskFinisherTextView.setText(currentUser.getUsername());
+                    mTaskFinisherTextView.setText(currentUser.getUsername());
                     Date createDate = avObject.getCreatedAt();
-                    final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                     String createDateText = format.format(createDate);
-                    taskCreateDataTextView.setText(createDateText);
+                    mTaskCreateDataTextView.setText(createDateText);
                     int state = avObject.getInt("state");
                     if (state == 2) {
-                        taskCloseTaskButton.setVisibility(View.GONE);
+                        mTaskCloseTaskButton.setVisibility(View.GONE);
                         Date closeDate = avObject.getUpdatedAt();
                         String closeDateText = format.format(closeDate);
-                        taskCloseDataTextView.setText(closeDateText);
+                        mTaskCloseDataTextView.setText(closeDateText);
                     } else {
-                        taskCloseTaskButton.setVisibility(View.VISIBLE);
-                        taskCloseDataTextView.setText("未关闭");
-                        taskCloseTaskButton.setOnClickListener(new View.OnClickListener() {
+                        mTaskCloseTaskButton.setVisibility(View.VISIBLE);
+                        mTaskCloseDataTextView.setText("未关闭");
+                        mTaskCloseTaskButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 avObject.put("state", 2);
                                 Date closeDate = avObject.getUpdatedAt();
                                 String closeDateText = format.format(closeDate);
-                                taskCloseDataTextView.setText(closeDateText);
-                                taskCloseTaskButton.setVisibility(View.GONE);
+                                mTaskCloseDataTextView.setText(closeDateText);
+                                mTaskCloseTaskButton.setVisibility(View.GONE);
                             }
                         });
                     }

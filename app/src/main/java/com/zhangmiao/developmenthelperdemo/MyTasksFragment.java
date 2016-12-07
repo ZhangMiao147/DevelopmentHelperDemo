@@ -19,7 +19,6 @@ import com.avos.avoscloud.FindCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-import flyme.support.v7.widget.LinearLayoutManager;
 import flyme.support.v7.widget.MzItemDecoration;
 import flyme.support.v7.widget.RecyclerView;
 
@@ -58,8 +57,7 @@ public class MyTasksFragment extends Fragment {
         itemDecoration.setDividerPadding(new MzItemDecoration.DividerPadding() {
             @Override
             public int[] getDividerPadding(int position) {
-                int[] padding = new int[]{16, 16};
-                return padding;
+                return new int[]{16, 16};
             }
         });
         myTaskList.addItemDecoration(itemDecoration);
@@ -80,8 +78,7 @@ public class MyTasksFragment extends Fragment {
 
         @Override
         public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            TaskViewHolder holder = new TaskViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.task_item,null, false));
-            return holder;
+            return new TaskViewHolder(LayoutInflater.from(getActivity()).inflate(R.layout.task_item,null, false));
         }
 
         @Override

@@ -3,19 +3,12 @@ package com.zhangmiao.developmenthelperdemo;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -36,12 +29,11 @@ public class CreateTasksActivity extends AppCompatActivity implements View.OnCli
 
     private static final String TAG = "DevelopmentHelperDemo";
 
-    private EditText projectName;
-    private EditText projectDescribe;
+    private EditText mProjectName;
+    private EditText mProjectDescribe;
 
-    private EditText taskName;
-    private EditText taskDescribe;
-    private RelativeLayout mChoiceLayout;
+    private EditText mTaskName;
+    private EditText mTaskDescribe;
 
     private TextView mChoiceProjectName;
 
@@ -49,29 +41,33 @@ public class CreateTasksActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_tasks);
-        mChoiceLayout = (RelativeLayout) findViewById(R.id.choice_project);
+        RelativeLayout mChoiceLayout = (RelativeLayout) findViewById(R.id.choice_project);
         mChoiceProjectName = (TextView) findViewById(R.id.choice_project_name);
 
-        mChoiceLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initCreateProjectNameList();
-            }
-        });
-        projectName = (EditText) findViewById(R.id.et_project_name);
-        projectDescribe = (EditText) findViewById(R.id.et_project_describe);
+        if(mChoiceLayout != null) {
+            mChoiceLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initCreateProjectNameList();
+                }
+            });
+        }
+        mProjectName = (EditText) findViewById(R.id.et_project_name);
+        mProjectDescribe = (EditText) findViewById(R.id.et_project_describe);
 
-
-        taskName = (EditText) findViewById(R.id.et_task_name);
-        taskDescribe = (EditText) findViewById(R.id.et_task_describe);
+        mTaskName = (EditText) findViewById(R.id.et_task_name);
+        mTaskDescribe = (EditText) findViewById(R.id.et_task_describe);
 
         Button createProject = (Button) findViewById(R.id.bt_create_project);
         Button createTask = (Button) findViewById(R.id.bt_create_task);
-        createTask.setOnClickListener(this);
-        createProject.setOnClickListener(this);
-
-        createTask.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
-        createProject.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        if(createTask != null) {
+            createTask.setOnClickListener(this);
+            createTask.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        }
+        if(createProject != null) {
+            createProject.setOnClickListener(this);
+            createProject.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        }
     }
 
 
@@ -108,8 +104,8 @@ public class CreateTasksActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_create_project:
-                final String projectNameText = projectName.getText().toString();
-                String projectDescribeText = projectDescribe.getText().toString();
+                final String projectNameText = mProjectName.getText().toString();
+                String projectDescribeText = mProjectDescribe.getText().toString();
                 AVUser currentUser = AVUser.getCurrentUser();
                 if (!projectNameText.isEmpty()) {
                     AVObject object = new AVObject("ProjectData");
@@ -135,7 +131,7 @@ public class CreateTasksActivity extends AppCompatActivity implements View.OnCli
                                     public void onClick(View v) {
                                         customAlertDialog.getAlertDialog().dismiss();
                                     }
-                                });;
+                                });
                             } else {
                                 Log.v(TAG, "ProjectDataStoreHelper save project data fail.error = " + e.getMessage());
                             }
@@ -150,8 +146,8 @@ public class CreateTasksActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.bt_create_task:
-                final String taskNameText = taskName.getText().toString();
-                final String taskDescribeText = taskDescribe.getText().toString();
+                final String taskNameText = mTaskName.getText().toString();
+                final String taskDescribeText = mTaskDescribe.getText().toString();
                 if (!taskNameText.isEmpty()) {
                     if (mChoiceProjectName.getText() != null) {
                         String selectedProjectText = mChoiceProjectName.getText().toString();

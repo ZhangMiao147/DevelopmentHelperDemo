@@ -23,13 +23,13 @@ import java.util.Locale;
 
 public class ProjectInformationActivity extends AppCompatActivity {
     private static final String TAG = "DevelopmentHelperDemo";
-    private TextView projectIdTextView;
-    private TextView projectDescribeTextView;
-    private TextView projectCreatorTextView;
-    private TextView projectMemberTextView;
-    private TextView projectCreateDataTextView;
-    private TextView projectCloseDataTextView;
-    private Button closeProjectButton;
+    private TextView mProjectIdTextView;
+    private TextView mProjectDescribeTextView;
+    private TextView mProjectCreatorTextView;
+    private TextView mProjectMemberTextView;
+    private TextView mProjectCreateDataTextView;
+    private TextView mProjectCloseDataTextView;
+    private Button mCloseProjectButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,14 +37,14 @@ public class ProjectInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_information);
 
         TextView projectNameTextView = (TextView) findViewById(R.id.project_information_project_name);
-        projectIdTextView = (TextView) findViewById(R.id.project_information_project_id);
-        projectCreatorTextView = (TextView) findViewById(R.id.project_information_project_creator);
-        projectMemberTextView = (TextView) findViewById(R.id.project_information_project_member);
-        projectDescribeTextView = (TextView) findViewById(R.id.project_information_project_describe);
-        projectCreateDataTextView = (TextView) findViewById(R.id.project_information_project_create_date);
-        projectCloseDataTextView = (TextView) findViewById(R.id.project_information_project_close_date);
-        closeProjectButton = (Button)findViewById(R.id.project_information_project_close_button);
-        closeProjectButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
+        mProjectIdTextView = (TextView) findViewById(R.id.project_information_project_id);
+        mProjectCreatorTextView = (TextView) findViewById(R.id.project_information_project_creator);
+        mProjectMemberTextView = (TextView) findViewById(R.id.project_information_project_member);
+        mProjectDescribeTextView = (TextView) findViewById(R.id.project_information_project_describe);
+        mProjectCreateDataTextView = (TextView) findViewById(R.id.project_information_project_create_date);
+        mProjectCloseDataTextView = (TextView) findViewById(R.id.project_information_project_close_date);
+        mCloseProjectButton = (Button)findViewById(R.id.project_information_project_close_button);
+        mCloseProjectButton.setBackground(GradientDrawableFactory.getStateListDrawable(getApplicationContext(), 0xFF198DED));
 
         Intent intent = getIntent();
         String projectName = intent.getStringExtra("projectName");
@@ -73,7 +73,7 @@ public class ProjectInformationActivity extends AppCompatActivity {
                             if (e == null) {
                                 AVUser creator = avObject.getAVUser("creator");
                                 String creatorName = creator.getUsername();
-                                projectCreatorTextView.setText(creatorName);
+                                mProjectCreatorTextView.setText(creatorName);
                             } else {
                                 Log.v(TAG, "ProjectInformationActivity get creator fail.error = " + e.getMessage());
                             }
@@ -87,8 +87,8 @@ public class ProjectInformationActivity extends AppCompatActivity {
                     String closeDateText = "未关闭";
                     switch (state) {
                         case 0:
-                            closeProjectButton.setVisibility(View.VISIBLE);
-                            closeProjectButton.setOnClickListener(new View.OnClickListener() {
+                            mCloseProjectButton.setVisibility(View.VISIBLE);
+                            mCloseProjectButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     avObject.put("state", 1);
@@ -97,11 +97,11 @@ public class ProjectInformationActivity extends AppCompatActivity {
                                         public void done(AVException e) {
                                             if (e == null) {
                                                 Log.v(TAG, "setState success");
-                                                closeProjectButton.setVisibility(View.GONE);
+                                                mCloseProjectButton.setVisibility(View.GONE);
                                                 Date closeDate = avObject.getUpdatedAt();
                                                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                                                 String closeDateText = format.format(closeDate);
-                                                projectCloseDataTextView.setText(closeDateText);
+                                                mProjectCloseDataTextView.setText(closeDateText);
                                             } else {
                                                 Log.v(TAG, "setState fail.error = " + e.getMessage());
                                             }
@@ -111,7 +111,7 @@ public class ProjectInformationActivity extends AppCompatActivity {
                             });
                             break;
                         case 1:
-                            closeProjectButton.setVisibility(View.GONE);
+                            mCloseProjectButton.setVisibility(View.GONE);
                             Date closeDate = avObject.getUpdatedAt();
                             closeDateText = format.format(closeDate);
                             break;
@@ -129,15 +129,14 @@ public class ProjectInformationActivity extends AppCompatActivity {
                                 String memberName = member.getUsername();
                                 membersNameText += memberName + ",";
                             }
-                            projectMemberTextView.setText(membersNameText);
+                            mProjectMemberTextView.setText(membersNameText);
                         }
                     });
 
-                    projectCloseDataTextView.setText(closeDateText);
-                    projectIdTextView.setText(projectId);
-                    projectDescribeTextView.setText(projectDescribe);
-
-                    projectCreateDataTextView.setText(createDateText);
+                    mProjectCloseDataTextView.setText(closeDateText);
+                    mProjectIdTextView.setText(projectId);
+                    mProjectDescribeTextView.setText(projectDescribe);
+                    mProjectCreateDataTextView.setText(createDateText);
                 } else {
                     Log.v(TAG, "ProjectInformationActivity getAVObject fail.error = " + e.getMessage());
                 }

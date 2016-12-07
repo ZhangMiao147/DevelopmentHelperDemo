@@ -10,25 +10,24 @@ import android.widget.EditText;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
-import com.meizu.common.widget.TabLayout;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG="DevelopmentHelperDemo";
-    private EditText userName;
-    private EditText mailbox;
-    private EditText firstPassword;
-    private EditText secondPassword;
+    private EditText mUserName;
+    private EditText mMailbox;
+    private EditText mFirstPassword;
+    private EditText mSecondPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        userName = (EditText)findViewById(R.id.register_user_name);
-        mailbox = (EditText)findViewById(R.id.register_mailbox);
-        firstPassword = (EditText)findViewById(R.id.register_first_password);
-        secondPassword = (EditText)findViewById(R.id.register_second_password);
+        mUserName = (EditText)findViewById(R.id.register_user_name);
+        mMailbox = (EditText)findViewById(R.id.register_mailbox);
+        mFirstPassword = (EditText)findViewById(R.id.register_first_password);
+        mSecondPassword = (EditText)findViewById(R.id.register_second_password);
         Button register = (Button)findViewById(R.id.register_register);
         if(register != null) {
             register.setOnClickListener(registerClcikListener);
@@ -39,14 +38,14 @@ public class RegisterActivity extends AppCompatActivity {
     private View.OnClickListener registerClcikListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String firstPasswordText = firstPassword.getText().toString();
-            String secondPasswordText = secondPassword.getText().toString();
+            String firstPasswordText = mFirstPassword.getText().toString();
+            String secondPasswordText = mSecondPassword.getText().toString();
             if(!firstPasswordText.equals(secondPasswordText)){
                 Log.v(TAG,"firstPasswordText is not equal secondPasswordText");
                 return;
             }
-            String userNameText = userName.getText().toString();
-            String mailboxText = mailbox.getText().toString();
+            String userNameText = mUserName.getText().toString();
+            String mailboxText = mMailbox.getText().toString();
 
             AVUser user = new AVUser();
             user.setUsername(userNameText);

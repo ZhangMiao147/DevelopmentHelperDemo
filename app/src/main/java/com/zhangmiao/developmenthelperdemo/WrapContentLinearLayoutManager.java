@@ -6,10 +6,6 @@ import android.util.AttributeSet;
 import flyme.support.v7.widget.LinearLayoutManager;
 import flyme.support.v7.widget.RecyclerView;
 
-
-/**
- * Created by zhangmiao on 2016/12/7.
- */
 public class WrapContentLinearLayoutManager extends LinearLayoutManager {
 
     public WrapContentLinearLayoutManager(Context context){
